@@ -1,18 +1,40 @@
-import { createRuntime } from './engine/runtime';
+import { createRuntime }
+from './engine/runtime';
 
-console.log("ENGINE BOOT");
-alert("ENGINE RUNNING");
+import { initialState }
+from './game/state';
 
-const runtime = createRuntime({
-  state: {
-    values: { distance: 0 }
-  },
-  systems: [
-    (s: any) => {
-      s.values.distance += 1;
-      return s;
-    }
-  ]
+import { distanceSystem }
+from './game/systems/distanceSystem';
+
+const runtime =
+  createRuntime({
+
+    state: initialState,
+
+    systems: [
+      distanceSystem,
+    ],
+  });
+
+
+
+window.addEventListener("keydown", (e) => {
+
+  if (e.code === "Space") {
+    runtime.pause();
+  }
+
+  if (e.code === "Enter") {
+    runtime.resume();
+  }
+});
+
+runtime.subscribe(state => {
+
+  console.log(
+    `Distance: ${state.distance}`
+  );
 });
 
 runtime.start();
