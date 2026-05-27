@@ -1,11 +1,14 @@
 import { createRuntime }
-from './engine/runtime';
+from './engine/core/runtime';
 
 import { initialState }
 from './game/state';
 
 import { distanceSystem }
 from './game/systems/distanceSystem';
+
+import { pause } from './engine/controls/pause';
+import { resume } from './engine/controls/resume';
 
 const runtime =
   createRuntime({
@@ -20,13 +23,13 @@ const runtime =
 
 
 window.addEventListener("keydown", (e) => {
-
+//Pause runtime
   if (e.code === "Space") {
-    runtime.pause();
+    pause(runtime);
   }
-
+//Resume runtime
   if (e.code === "Enter") {
-    runtime.resume();
+    resume(runtime);
   }
 });
 

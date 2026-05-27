@@ -1,4 +1,4 @@
-import type { System, EngineState } from './types';
+import type { System, EngineState } from '../types/types';
 
 type RuntimeOptions = {
   state: EngineState;
@@ -18,6 +18,10 @@ export function createRuntime({
   let interval: number | undefined;
 
   let running = false;
+
+  function setRunning(value: boolean) {
+    running = value;
+  }
 
   function tick() {
 
@@ -51,15 +55,6 @@ export function createRuntime({
     clearInterval(interval);
   }
 
-  function pause() {
-
-    running = false;
-  }
-
-  function resume() {
-
-    running = true;
-  }
 
   function getState() {
     return currentState;
@@ -72,9 +67,8 @@ export function createRuntime({
   return {
     start,
     stop,
-    pause,
-    resume,
     getState,
     subscribe,
+    setRunning
   };
 }

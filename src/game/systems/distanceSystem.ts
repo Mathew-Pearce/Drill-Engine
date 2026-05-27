@@ -1,4 +1,4 @@
-import type { System } from '../../engine/types';
+import type { System } from '../../engine/types/types';
 
 export const distanceSystem: System = (state) => {
     if (!state.running) return state;
