@@ -1,5 +1,7 @@
-export function resume(runtime) {
 
-    runtime.setRunning(true);
-  
-  }
+export function resume(runtime) {
+  console.log('[Controls] RESUME!');
+
+  runtime.setRunning(true);
+
+}

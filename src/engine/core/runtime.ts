@@ -23,6 +23,17 @@ export function createRuntime({
     running = value;
   }
 
+  function beginLoop() {
+
+    if (interval)
+      return;
+
+    interval = window.setInterval(
+      tick,
+      1000
+    );
+  }
+
   function tick() {
 
     if (!running) return;
@@ -38,23 +49,13 @@ export function createRuntime({
     });
   }
 
-  function start() {
-
-    running = true;
-
-    interval = window.setInterval(
-      tick,
-      1000
-    );
-  }
-
-  function stop() {
-
-    running = false;
-
+  
+  function haltLoop() {
+  
     clearInterval(interval);
-  }
 
+    interval = undefined;
+  }
 
   function getState() {
     return currentState;
@@ -65,10 +66,10 @@ export function createRuntime({
   }
 
   return {
-    start,
-    stop,
     getState,
     subscribe,
-    setRunning
+    setRunning,
+    beginLoop,
+    haltLoop,
   };
 }
