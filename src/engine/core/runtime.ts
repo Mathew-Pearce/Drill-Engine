@@ -23,7 +23,7 @@ export function createRuntime({
     running = value;
   }
 
-  function beginLoop() {
+  function start() {
 
     if (interval)
       return;
@@ -49,8 +49,12 @@ export function createRuntime({
     });
   }
 
+  function step(){
+    tick();
+  };
+
   
-  function haltLoop() {
+  function stop() {
   
     clearInterval(interval);
 
@@ -69,7 +73,8 @@ export function createRuntime({
     getState,
     subscribe,
     setRunning,
-    beginLoop,
-    haltLoop,
+    start,
+    step,
+    stop,
   };
 }

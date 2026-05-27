@@ -1,6 +1,6 @@
-export function stop(runtime){
+export function processStop(runtime){
     console.log('[Controls] STOP!');
 
     runtime.setRunning(false);
-    runtime.haltLoop();
+    runtime.stop();
 }

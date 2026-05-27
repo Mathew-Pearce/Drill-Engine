@@ -1,6 +1,6 @@
-export function start(runtime){
+export function processStart(runtime){
     console.log('[Controls] START!');
 
     runtime.setRunning(true);
-    runtime.beginLoop();
+    runtime.start();
 }

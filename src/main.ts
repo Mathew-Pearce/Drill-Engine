@@ -6,10 +6,8 @@ from './game/state';
 
 import { distanceSystem }
 from './game/systems/distanceSystem';
-import { start } from './engine/controls/start'
-import { pause } from './engine/controls/pause';
-import { resume } from './engine/controls/resume';
-import { stop } from './engine/controls/stop'
+
+import { bindEngineControls } from './game/input/engineControls'
 
 const runtime =
   createRuntime({
@@ -21,20 +19,7 @@ const runtime =
     ],
   });
 
-window.addEventListener("keydown", (e) => {
-  if (e.code === "KeyR"){
-    start(runtime);
-  }
-  if (e.code === "Space") {
-    pause(runtime);
-  }
-  if (e.code === "Enter") {
-    resume(runtime);
-  }
-  if (e.code === "KeyX"){
-    stop(runtime)
-  }
-});
+ bindEngineControls(runtime);
 
 runtime.subscribe(state => {
 
