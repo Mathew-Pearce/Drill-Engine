@@ -1,4 +1,4 @@
-import type { System, EngineState } from '../types/types';
+import type { System, EngineState, RuntimeStatus } from '../types/types';
 
 type RuntimeOptions = {
   state: EngineState;
@@ -12,28 +12,23 @@ export function createRuntime({
   config,
 }: RuntimeOptions) {
 
+  let status: RuntimeStatus = 'stopped';
+
   let currentState =
     structuredClone(state);
+  
+  let tickRate = 1000;
+
+  let interval: number | undefined;
 
   const listeners: Function[] = [];
-
-  type runtimeStatus = 
-  | 'stopped'
-  | 'running'
-  | 'paused';
-
-  let status: runtimeStatus = 'stopped';
 
   const runtimeConfig =
   structuredClone(config);
 
-  function getConfig(): Runtimeconfig{
-    return runtimeConfig;
+  function getStatus(){
+    return status;
   }
-
-  let tickRate = 1000;
-
-  let interval: number | undefined;
 
   function setStatus(
     value: runtimeStatus
@@ -41,27 +36,20 @@ export function createRuntime({
     status = value;
   }
 
-  function getStatus(){
-    return status;
+  function getTickRate() {
+    return tickRate;
   }
+
   function setTickRate(value: number){
     tickRate = value;
   }
 
-  function getTickRate() {
-
-    return tickRate;
+  function getConfig(): RuntimeConfig{
+    return runtimeConfig;
   }
 
-  function start() {
-
-    if (interval)
-      return;
-
-    interval = window.setInterval(
-      tick,
-      tickRate
-    );
+  function getState() {
+    return currentState;
   }
 
   function tick() {
@@ -74,29 +62,46 @@ export function createRuntime({
         system(currentState);
     });
 
-    listeners.forEach(listener => {
-      listener(currentState);
-    });
+  function start() {
+
+    if (interval)
+      return;
+
+    interval = window.setInterval(
+      tick,
+      tickRate
+    );
   }
 
-  function step(){
-    tick();
-  };
- 
-  function stop() {
+    function stop() {
   
     clearInterval(interval);
 
     interval = undefined;
   }
 
+    listeners.forEach(listener => {
+      listener(currentState);
+    });
+  }
+
+  function start() {
+     if (interval) return; 
+     interval = window.setInterval( tick, tickRate ); 
+    }
+
+    function stop() { 
+      clearInterval(interval); 
+      interval = undefined; 
+    }
+  
+  function step(){
+    tick();
+  };
+
   function reset(){
     currentState = 
       structuredClone(state);
-  }
-
-  function getState() {
-    return currentState;
   }
 
   function subscribe(listener: Function) {

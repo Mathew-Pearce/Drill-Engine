@@ -38,5 +38,5 @@ export function bindEngineControls(runtime) {
       config.resetOnStop
     );
         }
-      });
+  });
 }

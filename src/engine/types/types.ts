@@ -12,3 +12,8 @@ export type RuntimeConfig = {
   
     fastForwardRate: number;
   };
+
+export type RuntimeStatus = 
+| 'stopped'
+| 'running'
+| 'paused';
