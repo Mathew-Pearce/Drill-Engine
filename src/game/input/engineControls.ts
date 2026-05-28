@@ -26,5 +26,17 @@ export function bindEngineControls(runtime) {
         if (e.code === "KeyF"){
           processFastForward(runtime);
         }
+        if (e.code === "KeyG"){
+          const config =
+      runtime.getConfig();
+
+    config.resetOnStop =
+      !config.resetOnStop;
+
+    console.log(
+      '[Controls] resetOnStop:',
+      config.resetOnStop
+    );
+        }
       });
 }

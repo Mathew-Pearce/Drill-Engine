@@ -90,6 +90,11 @@ export function createRuntime({
     interval = undefined;
   }
 
+  function reset(){
+    currentState = 
+      structuredClone(state);
+  }
+
   function getState() {
     return currentState;
   }
@@ -109,5 +114,6 @@ export function createRuntime({
     start,
     step,
     stop,
+    reset,
   };
 }
