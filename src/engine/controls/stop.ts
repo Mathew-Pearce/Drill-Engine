@@ -1,6 +1,7 @@
 export function processStop(runtime){
+    if (runtime.getStatus() !== 'running')
+        return;
     console.log('[Controls] STOP!');
-
-    runtime.setRunning(false);
+    runtime.setStatus('stopped')
     runtime.stop();
 }

@@ -3,24 +3,28 @@ import { processPause } from '../../engine/controls/pause';
 import { processResume } from '../../engine/controls/resume';
 import { processStop } from '../../engine/controls/stop';
 import { processStep } from '../../engine/controls/step';
+import { processFastForward }from '../../engine/controls/fastForward';
 
-export function bindEngineControls(runTime) {
+export function bindEngineControls(runtime) {
 
     window.addEventListener("keydown", (e) => {
         if (e.code === "KeyR"){
-          processStart(runTime);
+          processStart(runtime);
         }
         if (e.code === "Space") {
-          processPause(runTime);
+          processPause(runtime);
         }
         if (e.code === "Enter") {
-          processResume(runTime);
+          processResume(runtime);
         }
         if (e.code === "KeyX"){
-          processStop(runTime)
+          processStop(runtime);
         }
         if (e.code === "KeyT"){
-          processStep(runTime)
+          processStep(runtime);
+        }
+        if (e.code === "KeyF"){
+          processFastForward(runtime);
         }
       });
 }

@@ -1,7 +1,9 @@
 
 export function processResume(runtime) {
-  console.log('[Controls] RESUME!');
-
-  runtime.setRunning(true);
-
+    if (runtime.getStatus() !== 'paused')
+        return;
+    console.log('[Controls] RESUME!');
+    runtime.setTickRate(1000);
+    runtime.setStatus('running');
+ 
 }

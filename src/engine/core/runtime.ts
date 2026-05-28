@@ -15,12 +15,34 @@ export function createRuntime({
 
   const listeners: Function[] = [];
 
-  let interval: number | undefined;
+  type runtimeStatus = 
+  | 'stopped'
+  | 'running'
+  | 'paused';
 
-  let running = false;
+  let status: runtimeStatus = 'stopped'
+
+  
+
+  let tickRate = 1000;
+
+  let interval: number | undefined;
 
   function setRunning(value: boolean) {
     running = value;
+  }
+
+  function setStatus(
+    value: runtimeStatus
+  ) {
+    status = value;
+  }
+
+  function getStatus(){
+    return status;
+  }
+  function setTickRate(value: number){
+    tickRate = value;
   }
 
   function start() {
@@ -30,13 +52,13 @@ export function createRuntime({
 
     interval = window.setInterval(
       tick,
-      1000
+      tickRate
     );
   }
 
   function tick() {
 
-    if (!running) return;
+    if (status !== 'running') return;
 
     systems.forEach(system => {
 
@@ -72,7 +94,11 @@ export function createRuntime({
   return {
     getState,
     subscribe,
+    setStatus,
+    getStatus,
     setRunning,
+    getRunning,
+    setTickRate,
     start,
     step,
     stop,

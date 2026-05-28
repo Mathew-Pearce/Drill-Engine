@@ -1,6 +1,7 @@
-export function pause(runtime) {
-
+export function processPause(runtime) {
+    if (runtime.getStatus() !== 'running')
+      return;
     console.log('[Controls] PAUSE!');
 
-    runtime.setRunning(false);
+    runtime.setStatus('paused');
   }
