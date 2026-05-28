@@ -7,6 +7,9 @@ from './game/state';
 import { distanceSystem }
 from './game/systems/distanceSystem';
 
+import { runtimeConfig }
+from './engine/config/runtimeConfig'
+
 import { bindEngineControls } from './game/input/engineControls'
 
 const runtime =
@@ -17,6 +20,7 @@ const runtime =
     systems: [
       distanceSystem,
     ],
+      config: runtimeConfig,
   });
 
  bindEngineControls(runtime);

@@ -3,11 +3,13 @@ import type { System, EngineState } from '../types/types';
 type RuntimeOptions = {
   state: EngineState;
   systems: System[];
+  config: RuntimeConfig;
 };
 
 export function createRuntime({
   state,
   systems,
+  config,
 }: RuntimeOptions) {
 
   let currentState =
@@ -20,17 +22,18 @@ export function createRuntime({
   | 'running'
   | 'paused';
 
-  let status: runtimeStatus = 'stopped'
+  let status: runtimeStatus = 'stopped';
 
-  
+  const runtimeConfig =
+  structuredClone(config);
+
+  function getConfig(): Runtimeconfig{
+    return runtimeConfig;
+  }
 
   let tickRate = 1000;
 
   let interval: number | undefined;
-
-  function setRunning(value: boolean) {
-    running = value;
-  }
 
   function setStatus(
     value: runtimeStatus
@@ -43,6 +46,11 @@ export function createRuntime({
   }
   function setTickRate(value: number){
     tickRate = value;
+  }
+
+  function getTickRate() {
+
+    return tickRate;
   }
 
   function start() {
@@ -74,8 +82,7 @@ export function createRuntime({
   function step(){
     tick();
   };
-
-  
+ 
   function stop() {
   
     clearInterval(interval);
@@ -92,12 +99,12 @@ export function createRuntime({
   }
 
   return {
+    getConfig,
     getState,
     subscribe,
     setStatus,
     getStatus,
-    setRunning,
-    getRunning,
+    getTickRate,
     setTickRate,
     start,
     step,

@@ -5,3 +5,10 @@ export type EngineState = {
 export type System<T = EngineState> = (
     state: T
 ) => T;
+
+export type RuntimeConfig = {
+
+    defaultTickRate: number;
+  
+    fastForwardRate: number;
+  };
