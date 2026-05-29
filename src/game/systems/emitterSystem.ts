@@ -1,4 +1,4 @@
-import { getBullet } from '../entities/bulletPool';
+import { getBullet } from '../entities/pools/bulletPool';
 
 export function emitterSystem(state) {
 

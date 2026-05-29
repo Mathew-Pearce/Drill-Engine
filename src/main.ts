@@ -11,11 +11,18 @@ from './engine/config/runtimeConfig'
 
 import { bindEngineControls } from './game/input/engineControls'
 
+import { bindKeys } from './game/input/keys';
+
+
+
 import { movementSystem } 
 from './game/systems/movementSystem'
 
 import { bulletSystem }
 from './game/systems/bulletSystem'
+
+import { playerMovementSystem } 
+from './game/systems/playerMovementSystem'
 
 import { lifetimeSystem } 
 from './game/systems/lifetimeSystem'
@@ -32,6 +39,7 @@ const runtime =
     systems: [
       emitterSystem,
       bulletSystem,
+      playerMovementSystem,
       movementSystem,
       lifetimeSystem
     ],
@@ -39,6 +47,7 @@ const runtime =
   });
 
  bindEngineControls(runtime);
+ bindKeys();
 
  const canvas = 
   document.getElementById('game') as HTMLCanvasElement;
@@ -56,6 +65,15 @@ const runtime =
 runtime.subscribe(state => {
 
   renderer.render(state);
+  // Get some feedback about bullets in the scene. 
+  const bullets =
+    state.entities.filter(
+      e => e.type === 'bullet'
+    ).length;
+
+  console.log(
+    `Bullets: ${bullets}`
+  );
 });
 
 runtime.setStatus('running');

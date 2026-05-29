@@ -1,5 +1,5 @@
 import { getBullet }
-from "../entities/bulletPool"
+from "../entities/pools/bulletPool"
 
 export function bulletSystem(state){
     if (Math.random() < 0.05) {

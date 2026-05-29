@@ -1,4 +1,4 @@
-import { createBullet } from './createBullet'
+import { createBullet } from '../factories/createBullet'
 
 let pool = [];
 
