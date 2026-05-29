@@ -53,6 +53,10 @@ export function createRuntime({
 
   function setTickRate(value: number) {
     tickRate = value;
+
+    if (interval) {
+      restartLoop();
+    }
   }
 
   function getConfig(): RuntimeConfig {
@@ -91,17 +95,33 @@ export function createRuntime({
   // =========================
   // Execution Control
   // =========================
+  function haltScheduler(){
+    clearInterval(interval);
 
-  function start() {
+    interval = undefined;
+  }
 
-    if (interval)
-      return;
+  function startScheduler() {
+    if(interval)
+     return;
 
-    interval = window.setInterval(
+     interval = window.setInterval(
       tick,
       tickRate
-    );
+     )
   }
+  
+
+  function start() {
+    startScheduler();
+  }
+
+  function restartLoop(){
+    haltScheduler()
+
+    startScheduler();
+  }
+
 
   function stop() {
 

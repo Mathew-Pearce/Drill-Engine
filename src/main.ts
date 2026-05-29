@@ -2,18 +2,17 @@ import { createRuntime }
 from './engine/core/runtime';
 
 import { initialState }
-from './game/state';
+from './game/state/initialState';
 
-import { distanceSystem }
-from './game/systems/distanceSystem';
-
-import { accelerationSystem }
-from './game/systems/accelerationSystem'
+import { createRenderer } from './game/render/render';
 
 import { runtimeConfig }
 from './engine/config/runtimeConfig'
 
 import { bindEngineControls } from './game/input/engineControls'
+
+import { movementSystem } 
+from './game/systems/movementSystem'
 
 const runtime =
   createRuntime({
@@ -21,20 +20,31 @@ const runtime =
     state: initialState,
 
     systems: [
-      accelerationSystem,
-      distanceSystem,
+      movementSystem
     ],
       config: runtimeConfig,
   });
 
  bindEngineControls(runtime);
 
+ const canvas = 
+  document.getElementById('game') as HTMLCanvasElement;
+
+  console.log(canvas);
+
+  canvas.width = 800;
+  canvas.height = 600;
+
+  canvas.style.background = 'black';
+
+  const renderer =
+    createRenderer(canvas)
+
 runtime.subscribe(state => {
 
-  console.log(
-    `D:${state.distance}
-  V:${state.velocity}
-  A:${state.acceleration}`
-  );
+  renderer.render(state);
 });
+
+runtime.setStatus('running');
+runtime.start();
 
