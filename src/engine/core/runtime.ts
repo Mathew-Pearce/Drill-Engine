@@ -1,4 +1,9 @@
-import type { System, EngineState, RuntimeStatus } from '../types/types';
+import type {
+  System,
+  EngineState,
+  RuntimeStatus,
+  RuntimeConfig,
+} from '../types/types';
 
 type RuntimeOptions = {
   state: EngineState;
@@ -12,11 +17,15 @@ export function createRuntime({
   config,
 }: RuntimeOptions) {
 
+  // =========================
+  // Runtime State
+  // =========================
+
   let status: RuntimeStatus = 'stopped';
 
   let currentState =
     structuredClone(state);
-  
+
   let tickRate = 1000;
 
   let interval: number | undefined;
@@ -24,15 +33,17 @@ export function createRuntime({
   const listeners: Function[] = [];
 
   const runtimeConfig =
-  structuredClone(config);
+    structuredClone(config);
 
-  function getStatus(){
+  // =========================
+  // Accessors
+  // =========================
+
+  function getStatus() {
     return status;
   }
 
-  function setStatus(
-    value: runtimeStatus
-  ) {
+  function setStatus(value: RuntimeStatus) {
     status = value;
   }
 
@@ -40,11 +51,11 @@ export function createRuntime({
     return tickRate;
   }
 
-  function setTickRate(value: number){
+  function setTickRate(value: number) {
     tickRate = value;
   }
 
-  function getConfig(): RuntimeConfig{
+  function getConfig(): RuntimeConfig {
     return runtimeConfig;
   }
 
@@ -52,15 +63,34 @@ export function createRuntime({
     return currentState;
   }
 
-  function tick() {
+  // =========================
+  // Core Simulation
+  // =========================
 
-    if (status !== 'running') return;
+  function processSystems() {
 
     systems.forEach(system => {
 
       currentState =
         system(currentState);
     });
+
+    listeners.forEach(l =>
+      l(currentState)
+    );
+  }
+
+  function tick() {
+
+    if (status !== 'running')
+      return;
+
+    processSystems();
+  }
+
+  // =========================
+  // Execution Control
+  // =========================
 
   function start() {
 
@@ -73,40 +103,44 @@ export function createRuntime({
     );
   }
 
-    function stop() {
-  
+  function stop() {
+
     clearInterval(interval);
 
     interval = undefined;
   }
 
-    listeners.forEach(listener => {
-      listener(currentState);
-    });
+  // =========================
+  // Manual Control
+  // =========================
+
+  function step() {
+
+    processSystems();
   }
 
-  function start() {
-     if (interval) return; 
-     interval = window.setInterval( tick, tickRate ); 
-    }
+  // =========================
+  // State Lifecycle
+  // =========================
 
-    function stop() { 
-      clearInterval(interval); 
-      interval = undefined; 
-    }
-  
-  function step(){
-    tick();
-  };
+  function reset() {
 
-  function reset(){
-    currentState = 
+    currentState =
       structuredClone(state);
   }
 
+  // =========================
+  // Observers
+  // =========================
+
   function subscribe(listener: Function) {
+
     listeners.push(listener);
   }
+
+  // =========================
+  // Public API
+  // =========================
 
   return {
     getConfig,

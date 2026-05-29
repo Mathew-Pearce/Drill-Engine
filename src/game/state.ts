@@ -1,5 +1,6 @@
 export const initialState = {
     distance: 0,
-    speed: 1,
+    velocity: 0,
+    acceleration: 1,
     running: true,
   };

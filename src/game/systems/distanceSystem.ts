@@ -5,6 +5,7 @@ export const distanceSystem: System = (state) => {
 
     return {
         ...state,
-        distance: state.distance + state.speed,
+        distance: state.distance + 
+        state.velocity,
     };
 }; 

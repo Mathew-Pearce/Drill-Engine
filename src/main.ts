@@ -7,6 +7,9 @@ from './game/state';
 import { distanceSystem }
 from './game/systems/distanceSystem';
 
+import { accelerationSystem }
+from './game/systems/accelerationSystem'
+
 import { runtimeConfig }
 from './engine/config/runtimeConfig'
 
@@ -18,6 +21,7 @@ const runtime =
     state: initialState,
 
     systems: [
+      accelerationSystem,
       distanceSystem,
     ],
       config: runtimeConfig,
@@ -28,7 +32,9 @@ const runtime =
 runtime.subscribe(state => {
 
   console.log(
-    `Distance: ${state.distance}`
+    `D:${state.distance}
+  V:${state.velocity}
+  A:${state.acceleration}`
   );
 });
 
