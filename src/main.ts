@@ -14,13 +14,22 @@ import { bindEngineControls } from './game/input/engineControls'
 import { movementSystem } 
 from './game/systems/movementSystem'
 
+import { bulletSystem }
+from './game/systems/bulletSystem'
+
+import { lifetimeSystem } 
+from './game/systems/lifetimeSystem'
+
+
 const runtime =
   createRuntime({
 
     state: initialState,
 
     systems: [
-      movementSystem
+      bulletSystem,
+      movementSystem,
+      lifetimeSystem
     ],
       config: runtimeConfig,
   });

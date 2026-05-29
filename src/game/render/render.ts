@@ -13,8 +13,8 @@ export function createRenderer(canvas: HTMLCanvasElement){
             ctx.fillRect(
                 entity.position.x,
                 entity.position.y,
-                5,
-                5
+                10,
+                10
             );
         });
     }
