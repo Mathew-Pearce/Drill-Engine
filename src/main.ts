@@ -20,6 +20,9 @@ from './game/systems/bulletSystem'
 import { lifetimeSystem } 
 from './game/systems/lifetimeSystem'
 
+import { emitterSystem } 
+from './game/systems/emitterSystem'
+
 
 const runtime =
   createRuntime({
@@ -27,6 +30,7 @@ const runtime =
     state: initialState,
 
     systems: [
+      emitterSystem,
       bulletSystem,
       movementSystem,
       lifetimeSystem
