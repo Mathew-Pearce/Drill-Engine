@@ -1,53 +1,62 @@
-import { getBullet } from '../../entities/pools/bulletPool'
-import { getEntityCenter } from '../../utils/getEntityCenter'
+import { getBullet }
+from '../../entities/pools/bulletPool';
+
+import { getEntityCenter }
+from '../../utils/getEntityCenter';
+
+import { getDirectionTo } from '../../utils/getDirectionTo'
+
 
 export function aimedPattern(
-    entity,
-    state,
-    newEntities
-){      
-        //Find Player
-        const player = state.entities.find(
-            entity => entity.type === 'player'
-        );
+  entity,
+  state,
+  newEntities
+) {
 
-        // CALCULTE DIRECTION
-        const dx =
-        player.position.x -
-        entity.position.x;
-    
-        const dy = 
-        player.position.y -
-        entity.position.y;
-    
-        const length = 
-        Math.hypot(dx, dy);
-    
-        const direction = {
-          x: dx / length,
-    
-          y: dy/ length,
-        };
-        
-        const bullet = getBullet();
+  // 🟢 Find 'player' target in current game state
+  const target =
+    state.entities.find(
+      e => e.type === entity.target
+    );
 
-        const center = getEntityCenter(entity);
-    
-        bullet.position = {
-          x:
-          center.x -
-          bullet.size / 2,
-      
-          y:
-          center.y -
-          bullet.size / 2,
-        };
-    
-        bullet.velocity = {
-          x: direction.x * 2,
-    
-          y: direction.y * 2,
-        };
-    
-        newEntities.push(bullet);
+  // Safety check (player may not exist in future modes)
+  if (!target)
+    return;
+
+  // 🟢 Calculate direction vector from emitter → player
+  const direction = getDirectionTo(
+    entity.position,
+    target.position,
+  )
+
+  // 🟢 Spawn bullet from emitter center
+  const bullet =
+    getBullet();
+
+  const center =
+    getEntityCenter(entity);
+
+  bullet.position = {
+
+    x:
+      center.x -
+      bullet.size / 2,
+
+    y:
+      center.y -
+      bullet.size / 2,
+  };
+
+  // 🟢 Apply velocity in direction of player
+  bullet.velocity = {
+
+    x:
+      direction.x * 2,
+
+    y:
+      direction.y * 2,
+  };
+
+  // 🟢 Inject bullet into world
+  newEntities.push(bullet);
 }

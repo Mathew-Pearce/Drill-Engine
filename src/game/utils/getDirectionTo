@@ -1,0 +1,43 @@
+/**
+ * Returns the normalized direction from one point to another.
+ *
+ * This helper combines vector subtraction and normalization
+ * into a single reusable operation.
+ *
+ * Useful for:
+ * - aimed projectiles
+ * - homing behaviour
+ * - target tracking
+ *
+ * @param from Origin position.
+ * @param to Destination position.
+ * @returns A normalized direction vector from origin to destination.
+ */
+export function getDirectionTo(
+  from,
+  to
+) {
+
+  const dx =
+    to.x - from.x;
+
+  const dy =
+    to.y - from.y;
+
+  const length =
+    Math.hypot(dx, dy);
+
+  // 🟢 Prevent divide-by-zero bug
+  if (length === 0) {
+
+    return {
+      x: 0,
+      y: 0,
+    };
+  }
+
+  return {
+    x: dx / length,
+    y: dy / length,
+  };
+}

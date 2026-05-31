@@ -13,8 +13,6 @@ import { bindEngineControls } from './game/input/engineControls'
 
 import { bindKeys } from './game/input/keys';
 
-
-
 import { movementSystem } 
 from './game/systems/movementSystem'
 

@@ -64,6 +64,8 @@ export const initialState = {
 
         type: 'emitter',
 
+        target: 'player',
+
         size: 20,
 
         position: {
