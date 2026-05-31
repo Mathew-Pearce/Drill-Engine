@@ -18,9 +18,6 @@ import { bindKeys } from './game/input/keys';
 import { movementSystem } 
 from './game/systems/movementSystem'
 
-import { bulletSystem }
-from './game/systems/bulletSystem'
-
 import { playerMovementSystem } 
 from './game/systems/playerMovementSystem'
 
@@ -38,7 +35,6 @@ const runtime =
 
     systems: [
       emitterSystem,
-      bulletSystem,
       playerMovementSystem,
       movementSystem,
       lifetimeSystem

@@ -46,6 +46,7 @@ export const initialState = {
         fireRate: 10,
 
         timer: 0,
+        pattern: 'directional',
 
         direction: {
           x: 0,
