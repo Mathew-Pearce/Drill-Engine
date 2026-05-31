@@ -17,17 +17,17 @@ export function createRenderer(canvas: HTMLCanvasElement) {
         // TYPE STYLING
         if (entity.type === 'bullet') {
           color = 'red';
-          size = 8;
+          size = entity.size;
         }
   
         if (entity.type === 'player') {
           color = 'cyan';
-          size = 8;
+          size =  entity.size;
         }
   
         if (entity.type === 'emitter') {
           color = 'magenta';
-          size = 8;
+          size =  entity.size;
         }
   
         ctx.fillStyle = color;

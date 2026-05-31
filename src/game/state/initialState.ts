@@ -4,6 +4,8 @@ export const initialState = {
       {
         id: 'player',
         type: 'player',
+
+        size: 20,
   
         position: {
           x: 100,
@@ -18,6 +20,8 @@ export const initialState = {
       {
         id: 'emitter_1',
         type: 'emitter',
+
+        size: 20,
 
         position: {
           x: 400,
@@ -38,6 +42,8 @@ export const initialState = {
         id: 'emitter_2',
         type: 'emitter',
 
+        size: 20,
+
         position: {
           x: 400, 
           y: 100
@@ -57,6 +63,8 @@ export const initialState = {
         id: 'aimed_emmiter',
 
         type: 'emitter',
+
+        size: 20,
 
         position: {
           x: 700,

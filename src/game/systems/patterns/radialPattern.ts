@@ -1,6 +1,8 @@
 import { getBullet }
 from '../../entities/pools/bulletPool';
 
+import { getEntityCenter } from '../../utils/getEntityCenter'
+
 export function radialPattern(
   entity,
   state,
@@ -22,8 +24,16 @@ export function radialPattern(
     const bullet =
       getBullet();
 
+    const center = getEntityCenter(entity);
+
     bullet.position = {
-      ...entity.position
+    x:
+    center.x -
+    bullet.size / 2,
+
+    y:
+    center.y -
+    bullet.size / 2,
     };
 
     bullet.velocity = {

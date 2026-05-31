@@ -21,6 +21,8 @@ from './game/systems/movementSystem'
 import { playerMovementSystem } 
 from './game/systems/playerMovementSystem'
 
+import { collisionSystem } from './game/systems/collisionSystem'
+
 import { lifetimeSystem } 
 from './game/systems/lifetimeSystem'
 
@@ -36,6 +38,7 @@ const runtime =
     systems: [
       emitterSystem,
       playerMovementSystem,
+      collisionSystem,
       movementSystem,
       lifetimeSystem
     ],

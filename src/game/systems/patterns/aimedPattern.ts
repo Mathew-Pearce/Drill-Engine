@@ -1,4 +1,5 @@
 import { getBullet } from '../../entities/pools/bulletPool'
+import { getEntityCenter } from '../../utils/getEntityCenter'
 
 export function aimedPattern(
     entity,
@@ -29,9 +30,17 @@ export function aimedPattern(
         };
         
         const bullet = getBullet();
+
+        const center = getEntityCenter(entity);
     
         bullet.position = {
-          ...entity.position
+          x:
+          center.x -
+          bullet.size / 2,
+      
+          y:
+          center.y -
+          bullet.size / 2,
         };
     
         bullet.velocity = {
