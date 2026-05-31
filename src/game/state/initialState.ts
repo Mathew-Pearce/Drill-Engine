@@ -26,6 +26,9 @@ export const initialState = {
         fireRate: 20, //ticks between shots
         timer: 0, 
 
+        pattern: 'radial',
+        bulletCount: 12,
+
         direction: {
           x: 1,
           y: 0,
@@ -48,7 +51,22 @@ export const initialState = {
           x: 0,
           y: 1,
         },
-      }
+      },
+      {
+        id: 'aimed_emmiter',
 
+        type: 'emitter',
+
+        position: {
+          x: 700,
+          y: 300,
+        },
+
+        fireRate: 20,
+
+        timer: 0,
+
+        pattern: 'aimed',
+      }
     ],
   };
