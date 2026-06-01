@@ -14,30 +14,30 @@
  * @returns A normalized direction vector from origin to destination.
  */
 export function getDirectionTo(
-  from,
-  to
-) {
-
-  const dx =
-    to.x - from.x;
-
-  const dy =
-    to.y - from.y;
-
-  const length =
-    Math.hypot(dx, dy);
-
-  // 🟢 Prevent divide-by-zero bug
-  if (length === 0) {
-
+    from,
+    to
+  ) {
+  
+    const dx =
+      to.x - from.x;
+  
+    const dy =
+      to.y - from.y;
+  
+    const length =
+      Math.hypot(dx, dy);
+  
+    // 🟢 Prevent divide-by-zero bug
+    if (length === 0) {
+  
+      return {
+        x: 0,
+        y: 0,
+      };
+    }
+  
     return {
-      x: 0,
-      y: 0,
+      x: dx / length,
+      y: dy / length,
     };
   }
-
-  return {
-    x: dx / length,
-    y: dy / length,
-  };
-}

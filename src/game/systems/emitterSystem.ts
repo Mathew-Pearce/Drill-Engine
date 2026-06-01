@@ -4,7 +4,20 @@ from '../entities/pools/bulletPool';
 import { patterns }
 from './patterns/patternsIndex';
 
+import { getEntitiesByType } from '../utils/getEntitiesByType'
+
 export function emitterSystem(state) {
+
+  const emitters =
+  getEntitiesByType(
+    state.entities,
+    'emitter'
+  );
+
+console.log(
+  '[QUERY]',
+  emitters.length
+);
 
   const newEntities =
     [...state.entities];
