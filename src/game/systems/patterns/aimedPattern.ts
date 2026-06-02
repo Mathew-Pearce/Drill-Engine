@@ -3,6 +3,7 @@ from '../../entities/pools/bulletPool';
 
 import { getEntityCenter }
 from '../../utils/getEntityCenter';
+import { getEntitiesById } from '../../utils/getEntitiesById'
 
 import { getDirectionTo } from '../../utils/getDirectionTo'
 
@@ -14,10 +15,7 @@ export function aimedPattern(
 ) {
 
   // 🟢 Find 'player' target in current game state
-  const target =
-    state.entities.find(
-      e => e.type === entity.target
-    );
+  const target = getEntitiesById(state.entities, 'player');
 
   // Safety check (player may not exist in future modes)
   if (!target)
