@@ -41,10 +41,23 @@ export function createRuntime({
 
   function getStatus() {
     return status;
+
   }
 
-  function setStatus(value: RuntimeStatus) {
+  function notifyListeners(){
+    listeners.forEach(
+      listener =>
+        listener(currentState)
+    );
+  }
+
+  function setStatus(
+    value: RuntimeStatus
+  ) {
+  
     status = value;
+  
+    notifyListeners();
   }
 
   function getTickRate() {
@@ -79,9 +92,7 @@ export function createRuntime({
         system(currentState);
     });
 
-    listeners.forEach(l =>
-      l(currentState)
-    );
+    notifyListeners();
   }
 
   function tick() {

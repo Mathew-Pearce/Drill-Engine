@@ -4,12 +4,13 @@ from './engine/core/runtime';
 import { initialState }
 from './game/state/initialState';
 
+import { initializeDeveloperUI } from './ui/initializeDeveloperUI';
+
 import { createRenderer } from './game/render/render';
 
 import { runtimeConfig }
 from './engine/config/runtimeConfig'
 
-import { bindEngineControls } from './game/input/engineControls'
 
 import { bindKeys } from './game/input/keys';
 
@@ -43,7 +44,7 @@ const runtime =
       config: runtimeConfig,
   });
 
- bindEngineControls(runtime);
+ initializeDeveloperUI(runtime);
  bindKeys();
 
  const canvas = 
@@ -73,6 +74,5 @@ runtime.subscribe(state => {
   );
 });
 
-runtime.setStatus('running');
-runtime.start();
+
 
