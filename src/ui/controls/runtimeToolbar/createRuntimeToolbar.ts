@@ -1,17 +1,14 @@
-import { processStart } from '../../../engine/controls/start';
-import { processPause } from '../../../engine/controls/pause';
-import { processResume } from '../../../engine/controls/resume';
-import { processStop } from '../../../engine/controls/stop';
-import { processStep } from '../../../engine/controls/step';
-import { processFastForward } from '../../../engine/controls/fastForward';
+import { 
+  processStart,
+  processPause,
+  processResume,
+  processStop,
+  processStep,
+  processFastForward,} from  '../../../engine/controls';
 
 export function createRuntimeToolbar(
   runtime
 ) {
-
-  console.log(
-    '[UI] Runtime Toolbar Created'
-  );
 
   // =========================
   // Panel
@@ -112,22 +109,24 @@ export function createRuntimeToolbar(
   // Checkbox
   // =========================
 
+  resetCheckbox.onchange = () => {
+
+    const config =
+      runtime.getConfig();
+  
+    config.resetOnStop =
+      resetCheckbox.checked;
+  };
+
+  // =========================
+// UI Sync
+// =========================
+function syncConfigUI() {
+
   resetCheckbox.checked =
     runtime.getConfig()
       .resetOnStop;
-
-  resetCheckbox.onchange =
-    () => {
-
-      runtime.getConfig()
-        .resetOnStop =
-        resetCheckbox.checked;
-
-      console.log(
-        '[Toolbar] resetOnStop:',
-        resetCheckbox.checked
-      );
-    };
+}
 
   // =========================
   // Render
@@ -137,6 +136,8 @@ export function createRuntimeToolbar(
 
     const status =
       runtime.getStatus();
+
+     syncConfigUI(); 
 
     stateLabel.textContent =
       `State: ${status}`;

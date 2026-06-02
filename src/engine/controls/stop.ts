@@ -1,6 +1,7 @@
 export function processStop(runtime){
-    if (runtime.getStatus() !== 'running')
-        return;
+    const status = runtime.getStatus();
+
+    if (status === 'stopped') return;
 
     const config =
         runtime.getConfig();

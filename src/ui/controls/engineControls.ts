@@ -1,13 +1,22 @@
-import { processStart } from '../../engine/controls/start';
-import { processPause } from '../../engine/controls/pause';
-import { processResume } from '../../engine/controls/resume';
-import { processStop } from '../../engine/controls/stop';
-import { processStep } from '../../engine/controls/step';
-import { processFastForward }from '../../engine/controls/fastForward';
+import { 
+  processStart,
+  processPause,
+  processResume,
+  processStop,
+  processStep,
+  processFastForward,} from '../../engine/controls';
+
 
 export function bindEngineControls(runtime) {
 
     window.addEventListener("keydown", (e) => {
+
+      // 🟡 Developer controls only when holding Shift
+      if (!e.ctrlKey)
+        return;
+      //Temporary prevent browser conflicts... ToDo think of another way, 
+      e.preventDefault();
+
         if (e.code === "KeyR"){
           processStart(runtime);
         }
