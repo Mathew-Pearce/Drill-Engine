@@ -29,6 +29,8 @@ from './game/systems/emitterSystem'
 
 import { deathSystem} from './game/systems/deathSystem'
 
+import { gameOverSystem } from './game/systems/gameOverSystem'
+
 import { cleanUpSystem } from './game/systems/cleanUpSystem'
 
 
@@ -45,6 +47,7 @@ const runtime =
       lifetimeSystem,
       deathSystem, 
       cleanUpSystem,
+      gameOverSystem
     ],
       config: runtimeConfig,
   });

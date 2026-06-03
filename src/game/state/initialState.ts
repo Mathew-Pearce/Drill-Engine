@@ -1,5 +1,7 @@
 export const initialState = {
-
+    game: {
+      isGameOver: false,
+  },
     entities: [
       {
         id: 'player',
