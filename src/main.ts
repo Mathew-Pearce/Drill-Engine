@@ -11,7 +11,6 @@ import { createRenderer } from './game/render/render';
 import { runtimeConfig }
 from './engine/config/runtimeConfig'
 
-
 import { bindKeys } from './game/input/keys';
 
 import { movementSystem } 
@@ -28,6 +27,8 @@ from './game/systems/lifetimeSystem'
 import { emitterSystem } 
 from './game/systems/emitterSystem'
 
+import { cleanUpSystem } from './game/systems/cleanUpSystem'
+
 
 const runtime =
   createRuntime({
@@ -39,7 +40,8 @@ const runtime =
       playerMovementSystem,
       collisionSystem,
       movementSystem,
-      lifetimeSystem
+      lifetimeSystem,
+      cleanUpSystem,
     ],
       config: runtimeConfig,
   });

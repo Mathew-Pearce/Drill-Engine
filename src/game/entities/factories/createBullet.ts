@@ -6,6 +6,7 @@ export function createBullet() {
         position: { x: 0, y: 0},
         velocity: { x: 0, y: 0},
         lifetime: 120,
-        active: true
+        active: true,
+        markedForRemoval: false
     };
 }

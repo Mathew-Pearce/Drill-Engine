@@ -13,11 +13,19 @@
  */
 export function isColliding(a, b) {
 
+
     return (
-      Math.abs(a.position.x - b.position.x) <
-        (a.size + b.size) / 2
-    &&
-      Math.abs(a.position.y - b.position.y) <
-        (a.size + b.size) / 2
-    );
+
+      a.position.x <
+      b.position.x + b.size &&
+  
+    a.position.x + a.size >
+      b.position.x &&
+  
+    a.position.y <
+      b.position.y + b.size &&
+  
+      a.position.y + a.size >
+      b.position.y
+    )
   }

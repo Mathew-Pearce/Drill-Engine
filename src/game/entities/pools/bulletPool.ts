@@ -9,5 +9,14 @@ export function getBullet(){
 
 
 export function releaseBullet(bullet) {
-    pool.push(bullet);
+
+        bullet.markedForRemoval = false;
+      
+        bullet.lifetime = 120;
+      
+        bullet.velocity = { x: 0, y: 0 };
+      
+        bullet.position = { x: 0, y: 0 };
+      
+        pool.push(bullet);
 }

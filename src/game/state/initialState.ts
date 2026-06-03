@@ -16,6 +16,11 @@ export const initialState = {
           x: 1,
           y: 0,
         },
+        health: 3,
+
+        maxHealth: 3,
+
+        markedForRemoval: false,
       },
       {
         id: 'emitter_1',
@@ -36,6 +41,12 @@ export const initialState = {
         direction: {
           x: 1,
           y: 0,
+
+          health: 1,
+
+          maxHealth: 1,
+
+          markedForRemoval: false,
         }
       },
       {
@@ -57,6 +68,12 @@ export const initialState = {
         direction: {
           x: 0,
           y: 1,
+
+          health: 1,
+
+          maxHealth: 1,
+
+          markedForRemoval: false,
         },
       },
       {
@@ -78,6 +95,12 @@ export const initialState = {
         timer: 0,
 
         pattern: 'aimed',
+
+        health: 1,
+
+        maxHealth: 1,
+
+        markedForRemoval: false,
       }
     ],
   };
