@@ -27,6 +27,8 @@ from './game/systems/lifetimeSystem'
 import { emitterSystem } 
 from './game/systems/emitterSystem'
 
+import { deathSystem} from './game/systems/deathSystem'
+
 import { cleanUpSystem } from './game/systems/cleanUpSystem'
 
 
@@ -41,6 +43,7 @@ const runtime =
       collisionSystem,
       movementSystem,
       lifetimeSystem,
+      deathSystem, 
       cleanUpSystem,
     ],
       config: runtimeConfig,

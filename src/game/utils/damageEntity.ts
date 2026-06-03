@@ -9,11 +9,9 @@ export function damageEntity(
     amount
   ) {
   
-    if (
-      entity.health === undefined
-    ) {
+    if (entity.health === undefined)
       return;
-    }
   
     entity.health -= amount;
+
   }

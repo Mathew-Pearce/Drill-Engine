@@ -13,7 +13,6 @@
  */
 export function isColliding(a, b) {
 
-
     return (
 
       a.position.x <

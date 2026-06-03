@@ -10,6 +10,9 @@ export function collisionSystem(state) {
     'player'
   );
 
+  if(!player)
+    return state;
+
   const bullets = getEntitiesByType(
     state.entities,
     'bullet'
