@@ -1,22 +1,23 @@
-import { 
+import {
   processStart,
   processPause,
   processResume,
   processStop,
   processStep,
-  processFastForward,} from  '../../../engine/controls';
+  processFastForward,
+} from '../../../engine/controls';
 
-export function createRuntimeToolbar(
-  runtime
-) {
+import { createPanel } from '../../core/createPanel'
+import { createButton } from '../../core/createButton'
+import { bindRuntimeView } from '../../core/bindRuntimeView'
+
+export function createRuntimeToolbar(runtime) {
 
   // =========================
   // Panel
   // =========================
 
-  const panel =
-    document.createElement('div');
-
+  const panel = createPanel();
   document.body.appendChild(
     panel
   );
@@ -25,258 +26,137 @@ export function createRuntimeToolbar(
   // Controls
   // =========================
 
-  const stateLabel =
-    document.createElement('div');
-
-  const primaryButton =
-    document.createElement('button');
-
-  const stopButton =
-    document.createElement('button');
-
-  stopButton.textContent =
-    'Stop';
-
-  const stepButton =
-    document.createElement('button');
-
-  stepButton.textContent =
-    'Step';
-
-  const fastForwardButton =
-    document.createElement('button');
-
-  fastForwardButton.textContent =
-    'Fast Forward';
-
-  const resetCheckbox =
-    document.createElement('input');
-
-  resetCheckbox.type =
-    'checkbox';
-
-  const resetLabel =
-    document.createElement('label');
-
-  resetLabel.textContent =
-    ' Reset On Stop';
+  const ui = createControls(panel);
 
   // =========================
-  // Append Controls
+  // Checkbox binding
   // =========================
 
-  panel.appendChild(
-    stateLabel
-  );
+  ui.resetCheckbox.onchange = () => {
 
-  panel.appendChild(
-    primaryButton
-  );
-
-  panel.appendChild(
-    stopButton
-  );
-
-  panel.appendChild(
-    stepButton
-  );
-
-  panel.appendChild(
-    fastForwardButton
-  );
-
-  panel.appendChild(
-    resetCheckbox
-  );
-
-  panel.appendChild(
-    resetLabel
-  );
-
-   // =========================
-  // Panel style
-  // =========================
-
-    panel.style.position = 'absolute';
-    panel.style.top = '10px';
-    panel.style.left = '10px';
-    panel.style.padding = '10px';
-    panel.style.border = '1px solid white';
-    panel.style.background = '#111';
-    panel.style.color = 'white';
-
-  // =========================
-  // Checkbox
-  // =========================
-
-  resetCheckbox.onchange = () => {
-
-    const config =
-      runtime.getConfig();
-  
-    config.resetOnStop =
-      resetCheckbox.checked;
+    runtime.getConfig().resetOnStop =
+      ui.resetCheckbox.checked;
   };
 
   // =========================
-// UI Sync
-// =========================
-function syncConfigUI() {
-
-  resetCheckbox.checked =
-    runtime.getConfig()
-      .resetOnStop;
-}
-
-  // =========================
-  // Render
+  // Render loop
   // =========================
 
   function render() {
 
-    const status =
-      runtime.getStatus();
+    const status = runtime.getStatus();
 
-     syncConfigUI(); 
+    syncUI(runtime, ui);
 
-    stateLabel.textContent =
+    ui.stateLabel.textContent =
       `State: ${status}`;
 
-    // STOPPED
+    if (status === 'stopped') {
 
-    if (
-      status === 'stopped'
-    ) {
+      ui.primaryButton.textContent = 'Start';
 
-      primaryButton.textContent =
-        'Start';
-
-      stopButton.style.display =
-        'none';
-
-      stepButton.style.display =
-        'none';
-
-      fastForwardButton.style.display =
-        'none';
+      ui.stopButton.style.display = 'none';
+      ui.stepButton.style.display = 'none';
+      ui.fastForwardButton.style.display = 'none';
     }
 
-    // RUNNING
+    else if (status === 'running') {
 
-    else if (
-      status === 'running'
-    ) {
+      ui.primaryButton.textContent = 'Pause';
 
-      primaryButton.textContent =
-        'Pause';
-
-      stopButton.style.display =
-        'inline-block';
-
-      stepButton.style.display =
-        'none';
-
-      fastForwardButton.style.display =
-        'inline-block';
+      ui.stopButton.style.display = 'inline-block';
+      ui.stepButton.style.display = 'none';
+      ui.fastForwardButton.style.display = 'inline-block';
     }
 
-    // PAUSED
+    else if (status === 'paused') {
 
-    else if (
-      status === 'paused'
-    ) {
+      ui.primaryButton.textContent = 'Resume';
 
-      primaryButton.textContent =
-        'Resume';
-
-      stopButton.style.display =
-        'inline-block';
-
-      stepButton.style.display =
-        'inline-block';
-
-      fastForwardButton.style.display =
-        'inline-block';
+      ui.stopButton.style.display = 'inline-block';
+      ui.stepButton.style.display = 'inline-block';
+      ui.fastForwardButton.style.display = 'inline-block';
     }
   }
 
   // =========================
-  // Primary Button
+  // Primary control
   // =========================
 
-  primaryButton.onclick =
-    () => {
+  ui.primaryButton.onclick = () => {
 
-      const status =
-        runtime.getStatus();
+    const status = runtime.getStatus();
 
-      if (
-        status === 'stopped'
-      ) {
+    if (status === 'stopped') {
+      processStart(runtime);
+    } else if (status === 'running') {
+      processPause(runtime);
+    } else {
+      processResume(runtime);
+    }
+  };
 
-        processStart(
-          runtime
-        );
+  ui.stopButton.onclick = () =>
+    processStop(runtime);
 
-      } else if (
-        status === 'running'
-      ) {
+  ui.stepButton.onclick = () =>
+    processStep(runtime);
 
-        processPause(
-          runtime
-        );
-
-      } else {
-
-        processResume(
-          runtime
-        );
-      }
-    };
+  ui.fastForwardButton.onclick = () =>
+    processFastForward(runtime);
 
   // =========================
-  // Stop
+  // Subscription
   // =========================
 
-  stopButton.onclick =
-    () => {
-
-      processStop(
-        runtime
-      );
-    };
-
-  // =========================
-  // Step
-  // =========================
-
-  stepButton.onclick =
-    () => {
-
-      processStep(
-        runtime
-      );
-    };
-
-  // =========================
-  // Fast Forward
-  // =========================
-
-  fastForwardButton.onclick =
-    () => {
-
-      processFastForward(
-        runtime
-      );
-    };
-
-  // =========================
-  // Runtime Subscription
-  // =========================
-
-  runtime.subscribe(
+  bindRuntimeView(
+    runtime,
     render
   );
+}
 
-  render();
+/* =========================================================
+   Internal UI helpers (same module, clearer structure)
+========================================================= */
+
+function createControls(panel) {
+
+  const stateLabel = document.createElement('div');
+
+  const primaryButton = createButton('');
+
+  const stopButton = createButton('Stop');
+
+  const stepButton = createButton('Step');
+
+  const fastForwardButton = createButton('Fast Forward');
+
+  const resetCheckbox = document.createElement('input');
+  resetCheckbox.type = 'checkbox';
+
+  const resetLabel = document.createElement('label');
+  resetLabel.textContent = ' Reset On Stop';
+
+  panel.appendChild(stateLabel);
+  panel.appendChild(primaryButton);
+  panel.appendChild(stopButton);
+  panel.appendChild(stepButton);
+  panel.appendChild(fastForwardButton);
+  panel.appendChild(resetCheckbox);
+  panel.appendChild(resetLabel);
+
+  return {
+    stateLabel,
+    primaryButton,
+    stopButton,
+    stepButton,
+    fastForwardButton,
+    resetCheckbox,
+  };
+}
+
+function syncUI(runtime, ui) {
+
+  ui.resetCheckbox.checked =
+    runtime.getConfig().resetOnStop;
 }
