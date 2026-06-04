@@ -4,6 +4,8 @@ from './engine/core/runtime';
 import { initialState }
 from './game/state/initialState';
 
+import { createViewport } from './ui/views/createViewport'
+
 import { initializeDeveloperUI } from './ui/initializeDeveloperUI';
 
 import { initializeGameUI}  from  './game/views/initializeGameUI'
@@ -54,30 +56,20 @@ const runtime =
       config: runtimeConfig,
   });
 
+  const viewport =
+  createViewport();
+
  initializeDeveloperUI(runtime);
- initializeGameUI(runtime);
+ initializeGameUI(
+  runtime,
+  viewport
+  );
+
  bindKeys();
 
- const canvas = 
-  document.getElementById('game') as HTMLCanvasElement;
-
-  const gameView =
-  document.getElementById('game-view');
-
-gameView.style.position = 'relative';
-gameView.style.width = '800px';
-gameView.style.height = '600px';
-gameView.style.overflow = 'hidden';
-
-  console.log(canvas);
-
-  canvas.width = 800;
-  canvas.height = 600;
-
-  canvas.style.background = 'black';
 
   const renderer =
-    createRenderer(canvas)
+    createRenderer(viewport.canvas)
 
 runtime.subscribe(state => {
 

@@ -1,6 +1,9 @@
 import { processStart } from '../../engine/controls/start'
 
-export function createGameOverOverlay(runtime) {
+export function createGameOverOverlay(
+    runtime,
+    viewport
+    ) {
 
     const overlay =
         document.createElement('div');
@@ -14,17 +17,15 @@ export function createGameOverOverlay(runtime) {
     title.textContent = 'GAME OVER';
     button.textContent = 'Restart';
 
+    button.style.pointerEvents =
+        'auto'
+
     overlay.appendChild(title);
     overlay.appendChild(button);
 
-    const gameView =
-        document.getElementById('game-view');
-
-    gameView.appendChild(overlay);
-
-    console.log('gameView:', gameView);
-    console.log('overlay parent:', overlay.parentElement);
-    console.log('gameView contains overlay:', gameView?.contains(overlay));
+    viewport.mountOverlay(
+        overlay
+    );
 
     // -------------------------
     // Styling (viewport scoped)
@@ -35,7 +36,7 @@ export function createGameOverOverlay(runtime) {
     overlay.style.left = '0';
     overlay.style.width = '100%';
     overlay.style.height = '100%';
-    gameView.style.overflow = 'hidden';
+  
 
     overlay.style.display = 'none';
 
@@ -55,7 +56,7 @@ export function createGameOverOverlay(runtime) {
     // -------------------------
 
     button.onclick = () => {
-
+        
         runtime.reset();
         processStart(runtime);
     };

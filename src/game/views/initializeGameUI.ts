@@ -2,10 +2,16 @@ import { createGameOverOverlay } from './createGameOverOverlay';
 import { bindGameOverOverlay } from './bindGameOverOverlay';
 import { processStart } from '../../engine/controls/start';
 
-export function initializeGameUI(runtime) {
+export function initializeGameUI(
+    runtime,
+    viewport
+    ) {
 
     const overlay =
-        createGameOverOverlay(runtime);
+        createGameOverOverlay(
+            runtime,
+            viewport
+            );
 
     bindGameOverOverlay(runtime, overlay);
 
