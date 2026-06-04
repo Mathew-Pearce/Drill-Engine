@@ -1,5 +1,6 @@
 import { createButton } from '../../ui/core/createButton'
 import { createOverlay } from '../../ui/core/createOverlay'
+import { createTitle } from '../../ui/core/createTitle'
 import { processStart } from '../../engine/controls/start'
 
 export function createGameOverOverlay(
@@ -11,15 +12,11 @@ export function createGameOverOverlay(
         createOverlay();
 
     const title =
-        document.createElement('h1');
+        createTitle('GAME OVER');
 
     const button =
         createButton('Restart');
-        
-
-    title.textContent = 'GAME OVER';
     
-
     button.style.pointerEvents =
         'auto'
 
