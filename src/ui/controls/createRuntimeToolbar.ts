@@ -5,11 +5,11 @@ import {
   processStop,
   processStep,
   processFastForward,
-} from '../../../engine/controls';
+} from '../../engine/controls';
 
-import { createPanel } from '../../core/createPanel'
-import { createButton } from '../../core/createButton'
-import { bindRuntimeView } from '../../core/bindRuntimeView'
+import { createPanel } from '../core/createPanel'
+import { createButton } from '../core/createButton'
+import { bindRuntimeView } from '../core/bindRuntimeView'
 
 export function createRuntimeToolbar(runtime) {
 

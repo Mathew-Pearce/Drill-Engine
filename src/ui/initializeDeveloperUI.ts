@@ -2,7 +2,7 @@ import { bindEngineControls }
 from './controls/engineControls';
 
 import { createRuntimeToolbar }
-from './controls/runtimeToolbar/createRuntimeToolbar';
+from './controls/createRuntimeToolbar';
 
 export function initializeDeveloperUI(
   runtime

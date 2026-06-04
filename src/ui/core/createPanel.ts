@@ -4,7 +4,7 @@ export function createPanel() {
         document.createElement('div');
 
     panel.style.position =
-    'absolue';
+    'absolute';
 
     panel.style.top =
     '10px'
@@ -15,7 +15,7 @@ export function createPanel() {
     panel.style.padding =
     '10px';
 
-    panel.style.boarder =
+    panel.style.border =
     '1px solid white';
 
     panel.style.background =

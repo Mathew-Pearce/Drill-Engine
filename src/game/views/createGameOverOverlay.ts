@@ -1,3 +1,5 @@
+import { createButton } from '../../ui/core/createButton'
+import { createOverlay } from '../../ui/core/createOverlay'
 import { processStart } from '../../engine/controls/start'
 
 export function createGameOverOverlay(
@@ -6,16 +8,17 @@ export function createGameOverOverlay(
     ) {
 
     const overlay =
-        document.createElement('div');
+        createOverlay();
 
     const title =
-        document.createElement('h2');
+        document.createElement('h1');
 
     const button =
-        document.createElement('button');
+        createButton('Restart');
+        
 
     title.textContent = 'GAME OVER';
-    button.textContent = 'Restart';
+    
 
     button.style.pointerEvents =
         'auto'
@@ -24,18 +27,16 @@ export function createGameOverOverlay(
     overlay.appendChild(button);
 
     viewport.mountOverlay(
-        overlay
+        overlay, 
+        {
+            width: '100%',
+            height: '100%'
+        }
     );
 
     // -------------------------
     // Styling (viewport scoped)
     // -------------------------
-
-    overlay.style.position = 'absolute';
-    overlay.style.top = '0';
-    overlay.style.left = '0';
-    overlay.style.width = '100%';
-    overlay.style.height = '100%';
   
 
     overlay.style.display = 'none';

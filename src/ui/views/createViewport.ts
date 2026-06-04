@@ -55,9 +55,37 @@ export function createViewport() {
         element,
         canvas,
         uiLayer,
+
+        width: 
+            canvas.width,
+        height:
+            canvas.height,
+            
         mountOverlay(
-            overlay
+            overlay,
+            options = []
         ) {
+
+            const {
+                width = '100%',
+                height = '100%'
+            } = options;
+
+            overlay.style.position =
+                'absolute';
+
+            overlay.style.top =
+                '0';
+
+            overlay.style.left =
+                '0';
+
+            overlay.style.width =
+                width;
+
+            overlay.style.height =
+                height;
+
             uiLayer.appendChild(
                 overlay
             )
