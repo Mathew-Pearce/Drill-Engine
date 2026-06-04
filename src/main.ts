@@ -6,6 +6,8 @@ from './game/state/initialState';
 
 import { initializeDeveloperUI } from './ui/initializeDeveloperUI';
 
+import { initializeGameUI}  from  './game/views/initializeGameUI'
+
 import { createRenderer } from './game/render/render';
 
 import { runtimeConfig }
@@ -53,10 +55,19 @@ const runtime =
   });
 
  initializeDeveloperUI(runtime);
+ initializeGameUI(runtime);
  bindKeys();
 
  const canvas = 
   document.getElementById('game') as HTMLCanvasElement;
+
+  const gameView =
+  document.getElementById('game-view');
+
+gameView.style.position = 'relative';
+gameView.style.width = '800px';
+gameView.style.height = '600px';
+gameView.style.overflow = 'hidden';
 
   console.log(canvas);
 
