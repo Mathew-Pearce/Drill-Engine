@@ -1,27 +1,30 @@
-import { bindEngineControls }
-from './controls/engineControls';
-
-import { createRuntimeToolbar }
-from './controls/createRuntimeToolbar';
-import { createViewport } from './views/createViewport'
+import { createViewportWindow } from './views/createViewportWindow'
+import { bindEngineControls } from './controls/engineControls'
 
 export function initializeDeveloperUI(
   runtime,
 ) {
-  const viewport =
-    createViewport();
+  const root =
+    document.getElementById(
+      'drill-root'
+    );
+
+    const viewportWindow =
+      createViewportWindow(runtime);
+
+    root.appendChild(
+      viewportWindow.frame
+    );
+
 
   bindEngineControls(
     runtime
   );
 
-  createRuntimeToolbar(
-    runtime
-  );
-
   return{
-    viewport
-  }
+    viewport:
+      viewportWindow.viewport
+  };
   
 }
 

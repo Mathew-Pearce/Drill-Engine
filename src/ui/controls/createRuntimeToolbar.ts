@@ -18,10 +18,8 @@ export function createRuntimeToolbar(runtime) {
   // =========================
 
   const panel = createPanel();
-  document.body.appendChild(
-    panel
-  );
 
+  panel.style.borderBottom = 'none';
   // =========================
   // Controls
   // =========================
@@ -113,6 +111,7 @@ export function createRuntimeToolbar(runtime) {
     runtime,
     render
   );
+  return panel;
 }
 
 /* =========================================================

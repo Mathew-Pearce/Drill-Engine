@@ -2,11 +2,6 @@ import { createPanel  } from '../core/createPanel'
 
 export function createViewport() {
 
-    const root = 
-        document.getElementById(
-            'drill-root'
-        );
-
     const frame 
         = createPanel();
 
@@ -14,9 +9,6 @@ export function createViewport() {
             document.createElement(
                 'canvas'
             );
-    root.appendChild(
-        frame
-    );
 
     frame.appendChild(
         canvas
@@ -26,17 +18,19 @@ export function createViewport() {
         document.createElement(
             'div'
         );
+    frame.style.padding =
+        '0';
 
-    root.style.position =
+    frame.style.position =
         'relative';
 
-    root.style.width =
+    frame.style.width =
         '800px';
 
-    root.style.height =
+    frame.style.height =
         '600px';
 
-    root.style.overflow =
+    frame.style.overflow =
         'hidden';
 
     canvas.width = 800;
