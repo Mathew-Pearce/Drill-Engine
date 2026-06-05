@@ -1,26 +1,42 @@
+import { createPanel  } from '../core/createPanel'
+
 export function createViewport() {
 
-    const element =
+    const root = 
         document.getElementById(
-            'game-view'
+            'drill-root'
         );
 
+    const frame 
+        = createPanel();
+
     const canvas =
-        document.getElementById(
-            'game'
-        ) as HTMLCanvasElement;
+            document.createElement(
+                'canvas'
+            );
+    root.appendChild(
+        frame
+    );
 
+    frame.appendChild(
+        canvas
+    );
 
-    element.style.position =
+    const uiLayer = 
+        document.createElement(
+            'div'
+        );
+
+    root.style.position =
         'relative';
 
-    element.style.width =
+    root.style.width =
         '800px';
 
-    element.style.height =
+    root.style.height =
         '600px';
 
-    element.style.overflow =
+    root.style.overflow =
         'hidden';
 
     canvas.width = 800;
@@ -28,9 +44,6 @@ export function createViewport() {
 
     canvas.style.background =
         'black';
-
-    const uiLayer =
-        document.createElement('div');
 
     uiLayer.style.position =
         'absolute';
@@ -48,11 +61,11 @@ export function createViewport() {
             '100%';
     uiLayer.style.pointerEvents =
     'none'
-    element?.appendChild(
+    frame.appendChild(
         uiLayer
     );
     return {
-        element,
+        frame,
         canvas,
         uiLayer,
 
@@ -60,7 +73,7 @@ export function createViewport() {
             canvas.width,
         height:
             canvas.height,
-            
+
         mountOverlay(
             overlay,
             options = []

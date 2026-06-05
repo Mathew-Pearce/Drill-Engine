@@ -3,10 +3,13 @@ from './controls/engineControls';
 
 import { createRuntimeToolbar }
 from './controls/createRuntimeToolbar';
+import { createViewport } from './views/createViewport'
 
 export function initializeDeveloperUI(
-  runtime
+  runtime,
 ) {
+  const viewport =
+    createViewport();
 
   bindEngineControls(
     runtime
@@ -15,5 +18,10 @@ export function initializeDeveloperUI(
   createRuntimeToolbar(
     runtime
   );
+
+  return{
+    viewport
+  }
+  
 }
 

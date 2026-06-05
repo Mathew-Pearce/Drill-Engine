@@ -4,8 +4,6 @@ from './engine/core/runtime';
 import { initialState }
 from './game/state/initialState';
 
-import { createViewport } from './ui/views/createViewport'
-
 import { initializeDeveloperUI } from './ui/initializeDeveloperUI';
 
 import { initializeGameUI}  from  './game/views/initializeGameUI'
@@ -56,20 +54,16 @@ const runtime =
       config: runtimeConfig,
   });
 
-  const viewport =
-  createViewport();
-
- initializeDeveloperUI(runtime);
+ const ui = initializeDeveloperUI(runtime);
  initializeGameUI(
   runtime,
-  viewport
+  ui.viewport
   );
 
  bindKeys();
 
-
   const renderer =
-    createRenderer(viewport.canvas)
+    createRenderer(ui.viewport.canvas)
 
 runtime.subscribe(state => {
 
