@@ -1,20 +1,18 @@
+import { UI_THEME } from './theme'
 export function createPanel() {
     
     const panel = 
         document.createElement('div');
 
-    panel.style.padding =
-    '10px';
+        panel.style.background =
+        UI_THEME.panelBorder,
 
-    panel.style.border =
-    '1px solid white';
-
-    panel.style.background =
-    '#111';
-
-    panel.style.color =
-    'white';
+        panel.style.border =
+        UI_THEME.panelBorder,
+    
+        panel.style.color =
+        UI_THEME.text;
+    
 
     return panel;
-
 }

@@ -1,30 +1,20 @@
-import { createViewportWindow } from './views/createViewportWindow'
-import { bindEngineControls } from './controls/engineControls'
+import { createDrillAppWindow } from './views/createDrillAppWindow';
+import { bindEngineControls } from './controls/engineControls';
 
-export function initializeDeveloperUI(
-  runtime,
-) {
-  const root =
-    document.getElementById(
-      'drill-root'
-    );
+export function initializeDeveloperUI(runtime) {
 
-    const viewportWindow =
-      createViewportWindow(runtime);
+    const rootElement =
+        document.getElementById('drill-root');
 
-    root.appendChild(
-      viewportWindow.frame
-    );
+    const app =
+        createDrillAppWindow(runtime);
 
+    rootElement.appendChild(app.root);
 
-  bindEngineControls(
-    runtime
-  );
+    bindEngineControls(runtime);
 
-  return{
-    viewport:
-      viewportWindow.viewport
-  };
-  
+    return {
+        viewport:
+            app.viewportWindow.viewport
+    };
 }
-
