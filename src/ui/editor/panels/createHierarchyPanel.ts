@@ -15,41 +15,92 @@ export function createHierarchyPanel(
   panel.style.flexShrink =
     '0';
 
-  function render(state) {
+    function render(state) {
 
-    panel.innerHTML = '';
-
-    panel.appendChild(
-      createTitle('Hierarchy')
-    );
-
-    state.entities.forEach(entity => {
-
-      const item =
-        document.createElement('div');
-
-      item.textContent =
-        `${entity.type}: ${entity.id}`;
-
-      item.style.cursor =
-        'pointer';
-
-      item.onclick = () => {
-
-        editor.selectEntity(
-          entity.id
-        );
-      };
-
+      panel.innerHTML = '';
+    
       panel.appendChild(
-        item
+        createTitle('Hierarchy')
       );
-    });
-  }
+    
+      const groups = {};
+    
+      state.entities.forEach(entity => {
+    
+        if (!groups[entity.type]) {
+          groups[entity.type] = [];
+        }
+    
+        groups[entity.type].push(entity);
+      });
+    
+      Object
+        .keys(groups)
+        .forEach(type => {
+    
+          const entities =
+            groups[type];
+    
+          const isCollapsed =
+            editor.isGroupCollapsed(type);
+    
+          const groupHeader =
+            document.createElement('div');
+    
+          groupHeader.textContent =
+            `${isCollapsed ? '▶' : '▼'} ${type} (${entities.length})`;
+    
+          groupHeader.style.cursor =
+            'pointer';
+    
+          groupHeader.onclick = () => {
+            editor.toggleGroup(type);
+          };
+    
+          panel.appendChild(
+            groupHeader
+          );
+    
+          if (isCollapsed) return;
+    
+          entities.forEach(entity => {
+    
+            const item =
+              document.createElement('div');
+    
+            item.textContent =
+              `  ${entity.id}`;
+    
+            item.style.cursor =
+              'pointer';
+    
+            item.style.paddingLeft =
+              '12px';
+    
+            item.onclick = () => {
+              editor.selectEntity(entity.id);
+            };
+    
+            panel.appendChild(
+              item
+            );
+          });
+        });
+    }
 
   runtime.subscribe(
     render
   );
 
+  editor.subscribe(() => {
+    render(
+      runtime.getState()
+    );
+  });
+
+  render(
+    runtime.getState()
+  );
+  
   return panel;
 }

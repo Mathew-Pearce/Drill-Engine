@@ -2,6 +2,8 @@ export function createEditorState() {
     
     let selectedEntityId = null;
 
+    let collapsedGroups = {};
+
     const listeners = [];
 
     function notify() {
@@ -19,6 +21,17 @@ export function createEditorState() {
         notify();
     }
 
+    function isGroupCollapsed(type){
+        return collapsedGroups[type] === true;
+    }
+
+    function toggleGroup(type){
+        collapsedGroups[type] = 
+            !collapsedGroups[type];
+
+            notify();
+    }
+
     function subscribe(listener) {
         listeners.push(listener);
     }
@@ -26,6 +39,8 @@ export function createEditorState() {
     return {
         getSelectedEntityId,
         selectEntity,
+        isGroupCollapsed,
+        toggleGroup,
         subscribe,
     }
 }
