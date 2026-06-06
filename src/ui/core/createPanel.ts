@@ -5,7 +5,7 @@ export function createPanel() {
         document.createElement('div');
 
         panel.style.background =
-        UI_THEME.panelBorder,
+        UI_THEME.panelBackground,
 
         panel.style.border =
         UI_THEME.panelBorder,

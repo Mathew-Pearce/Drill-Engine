@@ -1,39 +1,34 @@
-import { createPanel } from '../core/createPanel'
-import { createTitle } from '../core/createTitle'
-import { createHeaderBar } from './createHeaderBar'
-import { createViewportWindow } from './createViewportWindow'
+import { createPanel } from '../core/createPanel';
+import { createHeaderBar } from './createHeaderBar';
+import { createWorkspace } from './createWorkspace';
 
 export function createDrillAppWindow(runtime) {
 
-    const root = createPanel();
+  const root = createPanel();
 
-    const header = createHeaderBar();
-    const main = createPanel();
+  root.style.display = 'flex';
+  root.style.flexDirection = 'column';
+  root.style.width = '100vw';
+  root.style.height = '100vh';
 
-    const viewportWindow = createViewportWindow(runtime);
-    const inspector = createPanel();
+  const header =
+    createHeaderBar();
 
-    main.style.display = 'flex';
-    main.style.flexDirection = 'row';       
+  const workspace =
+    createWorkspace(runtime);
 
-    const title =
-    createTitle(
-        'Inspector'
-    );
+  workspace.frame.style.flex =
+    '1';
 
-    inspector.appendChild(
-        title
-    );
+  root.appendChild(header);
+  root.appendChild(workspace.frame);
 
-    main.appendChild(viewportWindow.frame);
-    main.appendChild(inspector);
+  return {
+    root,
+    header,
+    workspace,
 
-    root.appendChild(header);
-    root.appendChild(main);
-
-    return {
-        root,
-        viewportWindow,
-        inspector
-    };
+    viewport:
+      workspace.viewport,
+  };
 }

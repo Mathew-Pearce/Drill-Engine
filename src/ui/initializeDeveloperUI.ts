@@ -3,18 +3,20 @@ import { bindEngineControls } from './controls/engineControls';
 
 export function initializeDeveloperUI(runtime) {
 
-    const rootElement =
-        document.getElementById('drill-root');
+  const root =
+    document.getElementById('drill-root');
 
-    const app =
-        createDrillAppWindow(runtime);
+  const appWindow =
+    createDrillAppWindow(runtime);
 
-    rootElement.appendChild(app.root);
+  root.appendChild(
+    appWindow.root
+  );
 
-    bindEngineControls(runtime);
+  bindEngineControls(runtime);
 
-    return {
-        viewport:
-            app.viewportWindow.viewport
-    };
+  return {
+    viewport:
+      appWindow.viewport,
+  };
 }

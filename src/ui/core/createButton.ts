@@ -1,3 +1,5 @@
+import { UI_THEME } from './theme'
+
 /**
  * Creates a standard Drill UI button.
  *
@@ -23,7 +25,7 @@ export function createButton(
       '4px 8px';
   
     button.style.background =
-      '#222';
+      UI_THEME.buttonBackground;
   
     button.style.color =
       'white';

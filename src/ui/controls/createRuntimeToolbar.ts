@@ -19,9 +19,6 @@ export function createRuntimeToolbar(runtime) {
 
   const panel = createPanel();
 
-  panel.style.borderTop = 'none';
-
-  panel.style.borderBottom = 'none';
   // =========================
   // Controls
   // =========================
