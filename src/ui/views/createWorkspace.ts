@@ -2,7 +2,9 @@ import { createPanel } from '../core/createPanel';
 import { createTitle } from '../core/createTitle';
 import { createViewportWindow } from './createViewportWindow';
 
-export function createWorkspace(runtime) {
+export function createWorkspace(runtime, editor) {
+
+  let currentState = null;
 
   const frame = createPanel();
 
@@ -17,12 +19,8 @@ export function createWorkspace(runtime) {
   hierarchy.style.width = '200px';
   hierarchy.style.flexShrink = '0';
 
-  hierarchy.appendChild(
-    createTitle('Hierarchy')
-  );
-
   const viewportWindow =
-    createViewportWindow(runtime);
+  createViewportWindow(runtime, editor);
 
   viewportWindow.frame.style.flexShrink =
     '0';
@@ -32,8 +30,88 @@ export function createWorkspace(runtime) {
   inspector.style.width = '240px';
   inspector.style.flexShrink = '0';
 
-  inspector.appendChild(
-    createTitle('Inspector')
+  function renderHierarchy(state) {
+
+    hierarchy.innerHTML = '';
+
+    hierarchy.appendChild(
+      createTitle('Hierarchy')
+    );
+
+    state.entities.forEach(entity => {
+
+      const item =
+        document.createElement('div');
+
+      item.textContent =
+        `${entity.type}: ${entity.id}`;
+
+      item.style.cursor =
+        'pointer';
+
+      item.onclick = () => {
+        editor.selectEntity(entity.id);
+      };
+
+      hierarchy.appendChild(item);
+    });
+  }
+
+  function renderInspector() {
+
+    inspector.innerHTML = '';
+
+    inspector.appendChild(
+      createTitle('Inspector')
+    );
+
+    if (!currentState) {
+      inspector.appendChild(
+        document.createTextNode('No runtime state')
+      );
+      return;
+    }
+
+    const selectedId =
+      editor.getSelectedEntityId();
+
+    const entity =
+      currentState.entities.find(
+        entity => entity.id === selectedId
+      );
+
+    if (!entity) {
+      inspector.appendChild(
+        document.createTextNode('No entity selected')
+      );
+      return;
+    }
+
+    const output =
+      document.createElement('pre');
+
+    output.textContent =
+      JSON.stringify(
+        entity,
+        null,
+        2
+      );
+
+    inspector.appendChild(
+      output
+    );
+  }
+
+  runtime.subscribe(state => {
+
+    currentState = state;
+
+    renderHierarchy(state);
+    renderInspector();
+  });
+
+  editor.subscribe(
+    renderInspector
   );
 
   frame.appendChild(hierarchy);
@@ -48,5 +126,7 @@ export function createWorkspace(runtime) {
 
     viewport:
       viewportWindow.viewport,
+
+      editor
   };
 }

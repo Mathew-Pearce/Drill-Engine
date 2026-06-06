@@ -2,7 +2,7 @@ import { createPanel } from '../core/createPanel';
 import { createHeaderBar } from './createHeaderBar';
 import { createWorkspace } from './createWorkspace';
 
-export function createDrillAppWindow(runtime) {
+export function createDrillAppWindow(runtime, editor) {
 
   const root = createPanel();
 
@@ -15,7 +15,9 @@ export function createDrillAppWindow(runtime) {
     createHeaderBar();
 
   const workspace =
-    createWorkspace(runtime);
+    createWorkspace(runtime, 
+        editor
+        );
 
   workspace.frame.style.flex =
     '1';
