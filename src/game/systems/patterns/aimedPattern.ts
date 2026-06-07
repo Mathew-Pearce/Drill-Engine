@@ -7,6 +7,8 @@ import { getEntitiesById } from '../../utils/getEntitiesById'
 
 import { getDirectionTo } from '../../utils/getDirectionTo'
 
+import { getPosition } from '../../components/getPosition';
+
 
 export function aimedPattern(
   entity,
@@ -22,10 +24,22 @@ export function aimedPattern(
     return;
 
   // 🟢 Calculate direction vector from emitter → player
-  const direction = getDirectionTo(
-    entity.position,
-    target.position,
-  )
+  const emitterPosition =
+  getPosition(entity);
+
+const targetPosition =
+  getPosition(target);
+
+if (
+  !emitterPosition ||
+  !targetPosition
+) return;
+
+const direction =
+  getDirectionTo(
+    emitterPosition,
+    targetPosition
+  );
 
   // 🟢 Spawn bullet from emitter center
   const bullet =

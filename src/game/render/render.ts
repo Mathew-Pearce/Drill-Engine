@@ -1,3 +1,5 @@
+import { getPosition } from '../components/getPosition'
+
 export function createRenderer(canvas: HTMLCanvasElement) {
 
     const ctx = canvas.getContext('2d')!;
@@ -7,8 +9,11 @@ export function createRenderer(canvas: HTMLCanvasElement) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
   
       state.entities.forEach(entity => {
+
+        const position = 
+          getPosition(entity);
   
-        if (!entity.position) return;
+        if (!position) return;
   
         // DEFAULTS
         let color = 'white';
@@ -33,8 +38,8 @@ export function createRenderer(canvas: HTMLCanvasElement) {
         ctx.fillStyle = color;
   
         ctx.fillRect(
-          entity.position.x,
-          entity.position.y,
+          position.x,
+          position.y,
           size,
           size
         );

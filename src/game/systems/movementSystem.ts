@@ -1,18 +1,24 @@
+import { getPosition } from '../components/getPosition';
+
 export function movementSystem(state) {
-    const entities = state.entities.map(entity => {
-        if (!entity.velocity) return entity;
 
-        return {
-            ...entity,
-            position: {
-                x: entity.position.x + entity.velocity.x,
-                y: entity.position.y + entity.velocity.y,
-            }
-        }
-    });
+  state.entities.forEach(entity => {
 
-    return{
-        ...state,
-        entities
-    };
+    if (!entity.velocity)
+      return;
+
+    const position =
+      getPosition(entity);
+
+    if (!position)
+      return;
+
+    position.x +=
+      entity.velocity.x;
+
+    position.y +=
+      entity.velocity.y;
+  });
+
+  return state;
 }

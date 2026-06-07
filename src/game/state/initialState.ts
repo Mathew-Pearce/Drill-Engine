@@ -1,4 +1,5 @@
 import { createHealthComponent } from '../components/createHealthComponent'
+import { createTransformComponent } from '../components/createTransformComponent'
 
 export const initialState = {
     game: {
@@ -11,11 +12,6 @@ export const initialState = {
 
         size: 20,
   
-        position: {
-          x: 100,
-          y: 100,
-        },
-  
         velocity: {
           x: 1,
           y: 0,
@@ -24,6 +20,12 @@ export const initialState = {
         maxHealth: 3,
 
         components: {
+          transform: createTransformComponent({
+            x: 100,
+            y: 100, 
+            visible: true
+          }),
+
           health: createHealthComponent({
             currentHealth: 3,
             visible: true,
