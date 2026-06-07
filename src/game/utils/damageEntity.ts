@@ -1,17 +1,26 @@
+import { getComponent }  from '../components/getComponent'
 /**
  * Reduces an entity's health.
  *
  * @param entity Target entity.
  * @param amount Damage amount.
  */
+
+
 export function damageEntity(
     entity,
     amount
   ) {
   
-    if (entity.health === undefined)
-      return;
+    const health = 
+      getComponent(
+        entity, 
+        'health'
+      )
+
+      if (!health) 
+        return;
   
-    entity.health -= amount;
+    health.currentHealth -= amount;
 
   }

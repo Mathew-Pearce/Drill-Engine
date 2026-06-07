@@ -1,14 +1,14 @@
-import {isDead } from '../utils/isDead'
+import { isDead } from '../utils/isDead';
 
 export function deathSystem(state) {
-    
-    state.entities.forEach(entity =>{
-        if (entity.health === undefined)
-            return;
+
+  state.entities.forEach(entity => {
 
     if (isDead(entity)) {
-        entity.markedForRemoval = true
-        }
-    });
-    return state;
+      entity.isDead = true;
+      entity.markedForRemoval = true;
+    }
+  });
+
+  return state;
 }

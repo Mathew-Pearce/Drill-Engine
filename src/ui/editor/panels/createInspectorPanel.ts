@@ -1,5 +1,9 @@
 import { createPanel } from '../../core/createPanel';
 import { createTitle } from '../../core/createTitle';
+import { createSectionTitle } from '../../core/createSectionTitle';
+import { createSubTitle } from '../../core/createSubTitle';
+import { createDivider } from '../../core/createDivider';
+import { createFieldRow } from '../../core/createFieldRow';
 
 export function createInspectorPanel(
   runtime,
@@ -21,6 +25,10 @@ export function createInspectorPanel(
 
     panel.appendChild(
       createTitle('Inspector')
+    );
+
+    panel.appendChild(
+      createDivider()
     );
 
     const selectedId =
@@ -45,19 +53,73 @@ export function createInspectorPanel(
       return;
     }
 
-    const output =
-      document.createElement('pre');
-
-    output.textContent =
-      JSON.stringify(
-        entity,
-        null,
-        2
-      );
+    panel.appendChild(
+      createSectionTitle(
+        entity.type
+      )
+    );
 
     panel.appendChild(
-      output
+      createDivider()
     );
+
+    panel.appendChild(
+      createFieldRow(
+        'id',
+        entity.id
+      )
+    );
+
+    panel.appendChild(
+      createFieldRow(
+        'type',
+        entity.type
+      )
+    );
+
+    const components =
+      entity.components ?? {};
+
+    Object
+      .values(components)
+      .forEach(component => {
+
+        if (component.visible !== true)
+          return;
+
+        panel.appendChild(
+          createDivider()
+        );
+
+        panel.appendChild(
+          createSubTitle(
+            `${component.type} Component`
+          )
+        );
+
+        Object
+          .entries(component)
+          .forEach(([key, value]) => {
+
+            if (
+              key === 'type' ||
+              key === 'label' ||
+              key === 'visible'
+            ) return;
+
+            if (
+              value === undefined ||
+              value === null
+            ) return;
+
+            panel.appendChild(
+              createFieldRow(
+                key,
+                value
+              )
+            );
+          });
+      });
   }
 
   editor.subscribe(

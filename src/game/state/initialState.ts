@@ -1,3 +1,5 @@
+import { createHealthComponent } from '../components/createHealthComponent'
+
 export const initialState = {
     game: {
       isGameOver: false,
@@ -18,9 +20,15 @@ export const initialState = {
           x: 1,
           y: 0,
         },
-        health: 3,
 
         maxHealth: 3,
+
+        components: {
+          health: createHealthComponent({
+            currentHealth: 3,
+            visible: true,
+          }),
+        },
 
         markedForRemoval: false,
       },
