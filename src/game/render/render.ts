@@ -1,4 +1,4 @@
-import { getPosition } from '../components/getPosition'
+import { getPosition } from '../components/transform/getPosition'
 
 export function createRenderer(canvas: HTMLCanvasElement) {
 

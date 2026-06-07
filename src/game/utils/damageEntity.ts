@@ -1,4 +1,4 @@
-import { getComponent }  from '../components/getComponent'
+import { getComponent }  from '../components/core/getComponent'
 /**
  * Reduces an entity's health.
  *

@@ -1,4 +1,4 @@
-import { getComponent } from './getComponent';
+import { getComponent } from '../core/getComponent';
 
 export function getTransform(entity) {
 

@@ -1,4 +1,4 @@
-import { getPosition } from '../components/getPosition';
+import { getPosition } from '../components/transform/getPosition';
 
 /**
  * Performs a simple axis-aligned bounding box collision test

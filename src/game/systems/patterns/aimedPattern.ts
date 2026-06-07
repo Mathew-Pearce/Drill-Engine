@@ -7,7 +7,7 @@ import { getEntitiesById } from '../../utils/getEntitiesById'
 
 import { getDirectionTo } from '../../utils/getDirectionTo'
 
-import { getPosition } from '../../components/getPosition';
+import { getPosition } from '../../components/transform/getPosition';
 
 
 export function aimedPattern(

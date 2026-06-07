@@ -1,5 +1,5 @@
-import { createHealthComponent } from '../components/createHealthComponent'
-import { createTransformComponent } from '../components/createTransformComponent'
+import { createHealthComponent } from '../components/health/createHealthComponent'
+import { createTransformComponent } from '../components/transform/createTransformComponent'
 
 export const initialState = {
     game: {
