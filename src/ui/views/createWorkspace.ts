@@ -1,7 +1,7 @@
 import { createPanel } from '../core/createPanel';
 import { createViewportWindow } from './createViewportWindow';
 import { createHierarchyPanel } from '../editor/panels/createHierarchyPanel';
-import { createInspectorPanel } from '../editor/panels/createInspectorPanel';
+import { createInspectorPanel } from '../editor/panels/inspector/createInspectorPanel';
 
 export function createWorkspace(
   runtime,
