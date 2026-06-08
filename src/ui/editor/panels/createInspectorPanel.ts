@@ -91,11 +91,33 @@ export function createInspectorPanel(
           createDivider()
         );
 
-        panel.appendChild(
+        const collapsed =
+          editor.isComponentCollapsed(
+            entity.id,
+            component.type
+          );
+
+        const header =
           createSubTitle(
-            `${component.type} Component`
-          )
+            `${collapsed ? '▶' : '▼'} ${component.type} Component`
+          );
+
+        header.style.cursor =
+          'pointer';
+
+        header.onclick = () => {
+          editor.toggleComponent(
+            entity.id,
+            component.type
+          );
+        };
+
+        panel.appendChild(
+          header
         );
+
+        if (collapsed)
+          return;
 
         Object
           .entries(component)

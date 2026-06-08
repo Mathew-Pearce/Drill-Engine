@@ -4,6 +4,8 @@ export function createEditorState() {
 
     let collapsedGroups = {};
 
+    let collapsedComponents = {};
+
     const listeners = [];
 
     function notify() {
@@ -19,6 +21,22 @@ export function createEditorState() {
     function selectEntity(id) {
         selectedEntityId = id;
         notify();
+    }
+
+    function isComponentCollapsed(entityId, componentType){
+        return collapsedComponents[`${entityId}: ${componentType}`] 
+                === true;
+    }
+
+    function toggleComponent(entityId, componentType) {
+        const key =
+            `${entityId}: ${componentType}`;
+
+            collapsedComponents[key] =
+                !collapsedComponents[key];
+
+            notify();
+
     }
 
     function isGroupCollapsed(type){
@@ -40,6 +58,8 @@ export function createEditorState() {
         getSelectedEntityId,
         selectEntity,
         isGroupCollapsed,
+        isComponentCollapsed,
+        toggleComponent,
         toggleGroup,
         subscribe,
     }
