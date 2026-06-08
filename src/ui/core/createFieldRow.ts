@@ -2,11 +2,13 @@ import { createInlineField } from './fields/createInlineField';
 
 export function createFieldRow(
   label,
-  value
+  value,
+  onChange
 ) {
 
   return createInlineField(
     label,
-    value
+    value,
+    onChange
   );
 }

@@ -1,6 +1,11 @@
 import { createReadOnlyField } from './createReadOnlyField';
+import { createNumberField } from './createNumberField';
 
-export function createInlineField(label, value) {
+export function createInlineField(
+  label,
+  value,
+  onChange
+) {
 
   const row =
     document.createElement('div');
@@ -29,8 +34,15 @@ export function createInlineField(label, value) {
   labelElement.style.flexShrink =
     '0';
 
-  const field =
-    createReadOnlyField(value);
+    const field =
+    typeof value === 'number'
+      ? createNumberField(
+          value,
+          onChange
+        )
+      : createReadOnlyField(
+          value
+        );
 
   row.appendChild(labelElement);
   row.appendChild(field);
