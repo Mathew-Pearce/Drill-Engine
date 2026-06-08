@@ -23,6 +23,7 @@ function formatNumber(value) {
 
 export function renderComponentField(
   panel,
+  component,
   key,
   value
 ) {
@@ -56,7 +57,10 @@ export function renderComponentField(
   panel.appendChild(
     createFieldRow(
       key,
-      formatNumber(value)
+      formatNumber(value),
+      newValue => {
+        component[key] = newValue;
+      }
     )
   );
 }

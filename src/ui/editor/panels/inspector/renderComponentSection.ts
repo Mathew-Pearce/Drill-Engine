@@ -50,6 +50,7 @@ export function renderComponentSection(
 
       renderComponentField(
         panel,
+        component,
         key,
         value
       );
