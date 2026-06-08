@@ -14,7 +14,7 @@ export function createInspectorPanel(
     createPanel();
 
   panel.style.width =
-    '240px';
+    '320px';
 
   panel.style.flexShrink =
     '0';

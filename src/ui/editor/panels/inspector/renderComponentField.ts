@@ -1,4 +1,5 @@
 import { createFieldRow } from '../../../core/createFieldRow';
+import { createVectorFieldRow } from '../../../core/fields/createVectorFieldRow';
 
 function isVectorLike(value) {
 
@@ -7,6 +8,16 @@ function isVectorLike(value) {
     typeof value === 'object' &&
     'x' in value &&
     'y' in value
+  );
+}
+
+function formatNumber(value) {
+
+  if (typeof value !== 'number')
+    return value;
+
+  return Number(
+    value.toFixed(2)
   );
 }
 
@@ -30,9 +41,12 @@ export function renderComponentField(
   if (isVectorLike(value)) {
 
     panel.appendChild(
-      createFieldRow(
+      createVectorFieldRow(
         key,
-        `x: ${value.x}  y: ${value.y}`
+        {
+          x: formatNumber(value.x),
+          y: formatNumber(value.y),
+        }
       )
     );
 
@@ -42,7 +56,7 @@ export function renderComponentField(
   panel.appendChild(
     createFieldRow(
       key,
-      value
+      formatNumber(value)
     )
   );
 }
