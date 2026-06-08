@@ -1,6 +1,7 @@
 export function createNumberField(
     value,
-    onChange
+    onChange,
+    options = {},
   ) {
   
     const input =
@@ -26,6 +27,14 @@ export function createNumberField(
   
     input.style.color =
       'white';
+
+    input.onfocus = () => {
+        options.onFocus?.();
+      };
+    
+    input.onblur = () => {
+        options.onBlur?.();
+      };
   
     input.onchange = () => {
   

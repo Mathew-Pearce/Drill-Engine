@@ -6,6 +6,7 @@ export function renderComponentSection(
   panel,
   entity,
   component,
+  runtime,
   editor
 ) {
 
@@ -50,9 +51,11 @@ export function renderComponentSection(
 
       renderComponentField(
         panel,
+        entity,
         component,
         key,
         value,
+        runtime,
         editor
       );
     });

@@ -6,6 +6,8 @@ export function createEditorState() {
 
     let collapsedComponents = {};
 
+    let isInteracting = false;
+
     const listeners = [];
 
     function notify() {
@@ -16,6 +18,23 @@ export function createEditorState() {
 
     function notifyChange() {
         notify();
+      }
+
+    function beginInteraction() {
+        isInteracting = true;
+    }
+
+    function endInteraction() {
+
+        isInteracting =
+          false;
+      
+        notify();
+      }
+
+      function getIsInteracting() {
+
+        return isInteracting;
       }
 
     function getSelectedEntityId() {
@@ -67,5 +86,9 @@ export function createEditorState() {
         toggleGroup,
         subscribe,
         notifyChange,
+
+        beginInteraction,
+        endInteraction,
+        getIsInteracting,
     }
 }

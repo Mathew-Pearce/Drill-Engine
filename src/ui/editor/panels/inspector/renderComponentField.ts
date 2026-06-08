@@ -1,5 +1,6 @@
 import { createFieldRow } from '../../../core/createFieldRow';
 import { createVectorFieldRow } from '../../../core/fields/createVectorFieldRow';
+import { updateComponentField } from '../../actions/updateComponentField';
 
 function isVectorLike(value) {
 
@@ -23,9 +24,11 @@ function formatNumber(value) {
 
 export function renderComponentField(
   panel,
+  entity,
   component,
   key,
   value,
+  runtime,
   editor,
 ) {
 
@@ -50,11 +53,18 @@ export function renderComponentField(
           y: formatNumber(value.y),
         },
         (axis, newValue) => {
-      
-          value[axis] =
-            newValue;
-      
-          editor.notifyChange();
+          updateComponentField({
+            runtime,
+            editor,
+            entityId: entity.id,
+            componentType: component.type,
+            path: [key, axis],
+            value: newValue,
+          });
+        },
+        {
+          onFocus: () => editor.beginInteraction(),
+          onBlur: () => editor.endInteraction(),
         }
       )
     );
@@ -67,11 +77,18 @@ export function renderComponentField(
       key,
       formatNumber(value),
       newValue => {
-  
-        component[key] =
-          newValue;
-  
-        editor.notifyChange();
+        updateComponentField({
+          runtime,
+          editor,
+          entityId: entity.id,
+          componentType: component.type,
+          path: [key],
+          value: newValue,
+        });
+      },
+      {
+        onFocus: () => editor.beginInteraction(),
+        onBlur: () => editor.endInteraction(),
       }
     )
   );

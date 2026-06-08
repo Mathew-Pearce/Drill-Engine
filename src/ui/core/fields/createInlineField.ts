@@ -4,7 +4,8 @@ import { createNumberField } from './createNumberField';
 export function createInlineField(
   label,
   value,
-  onChange
+  onChange,
+  options = {},
 ) {
 
   const row =
@@ -41,7 +42,8 @@ export function createInlineField(
     typeof value === 'number'
       ? createNumberField(
           value,
-          onChange
+          onChange,
+          options
         )
       : createReadOnlyField(
           value

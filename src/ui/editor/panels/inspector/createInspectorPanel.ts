@@ -34,9 +34,9 @@ export function createInspectorPanel(
     const selectedId =
       editor.getSelectedEntityId();
 
-    const state =
-      runtime.getState();
-
+      const state =
+  runtime.getState();
+  
     const entity =
       state.entities.find(
         entity => entity.id === selectedId
@@ -69,6 +69,7 @@ export function createInspectorPanel(
           panel,
           entity,
           component,
+          runtime,
           editor
         );
       });
@@ -77,10 +78,14 @@ export function createInspectorPanel(
   editor.subscribe(
     render
   );
+  
+  runtime.subscribe(() => {
 
-  runtime.subscribe(
-    render
-  );
+    if (editor.getIsInteracting())
+      return;
+  
+    render();
+  });
 
   render();
 

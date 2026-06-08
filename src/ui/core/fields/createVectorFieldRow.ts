@@ -3,7 +3,8 @@ import { createNumberField } from './createNumberField';
 export function createVectorFieldRow(
   label,
   value,
-  onChange
+  onChange,
+  options = {},
 ) {
 
   const row =
@@ -50,7 +51,8 @@ export function createVectorFieldRow(
           'x',
           newValue
         );
-      }
+      },
+      options
     );
 
   const yLabel =
@@ -67,7 +69,8 @@ export function createVectorFieldRow(
           'y',
           newValue
         );
-      }
+      },
+      options
     );
 
   row.appendChild(labelElement);
