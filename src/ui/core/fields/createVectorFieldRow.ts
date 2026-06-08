@@ -1,7 +1,10 @@
-import { createReadOnlyField } from './createReadOnlyField';
 import { createNumberField } from './createNumberField';
 
-export function createVectorFieldRow(label, value) {
+export function createVectorFieldRow(
+  label,
+  value,
+  onChange
+) {
 
   const row =
     document.createElement('div');
@@ -16,6 +19,9 @@ export function createVectorFieldRow(label, value) {
     '8px';
 
   row.style.marginBottom =
+    '4px';
+
+  row.style.paddingLeft =
     '4px';
 
   const labelElement =
@@ -36,10 +42,16 @@ export function createVectorFieldRow(label, value) {
   xLabel.textContent =
     'x:';
 
-    const xField =
-  typeof value.x === 'number'
-    ? createNumberField(value.x)
-    : createReadOnlyField(value.x);
+  const xField =
+    createNumberField(
+      value.x,
+      newValue => {
+        onChange?.(
+          'x',
+          newValue
+        );
+      }
+    );
 
   const yLabel =
     document.createElement('span');
@@ -47,10 +59,16 @@ export function createVectorFieldRow(label, value) {
   yLabel.textContent =
     'y:';
 
-    const yField =
-    typeof value.x === 'number'
-      ? createNumberField(value.y)
-      : createReadOnlyField(value.y);
+  const yField =
+    createNumberField(
+      value.y,
+      newValue => {
+        onChange?.(
+          'y',
+          newValue
+        );
+      }
+    );
 
   row.appendChild(labelElement);
   row.appendChild(xLabel);

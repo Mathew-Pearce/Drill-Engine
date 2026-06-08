@@ -47,10 +47,14 @@ export function renderComponentField(
         {
           x: formatNumber(value.x),
           y: formatNumber(value.y),
+        },
+        (axis, newValue) => {
+          value[axis] =
+            newValue;
         }
       )
     );
-
+  
     return;
   }
 

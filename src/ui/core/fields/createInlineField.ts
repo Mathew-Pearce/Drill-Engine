@@ -19,6 +19,9 @@ export function createInlineField(
   row.style.gap =
     '8px';
 
+    row.style.paddingLeft =
+  '4px';
+
   row.style.marginBottom =
     '4px';
 
