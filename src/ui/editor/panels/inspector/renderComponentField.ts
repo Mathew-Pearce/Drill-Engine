@@ -25,7 +25,8 @@ export function renderComponentField(
   panel,
   component,
   key,
-  value
+  value,
+  editor,
 ) {
 
   if (
@@ -49,8 +50,11 @@ export function renderComponentField(
           y: formatNumber(value.y),
         },
         (axis, newValue) => {
+      
           value[axis] =
             newValue;
+      
+          editor.notifyChange();
         }
       )
     );
@@ -63,7 +67,11 @@ export function renderComponentField(
       key,
       formatNumber(value),
       newValue => {
-        component[key] = newValue;
+  
+        component[key] =
+          newValue;
+  
+        editor.notifyChange();
       }
     )
   );

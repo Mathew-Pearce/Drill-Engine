@@ -52,7 +52,8 @@ export function renderComponentSection(
         panel,
         component,
         key,
-        value
+        value,
+        editor
       );
     });
 }

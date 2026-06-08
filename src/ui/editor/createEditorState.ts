@@ -14,6 +14,10 @@ export function createEditorState() {
         )
     }
 
+    function notifyChange() {
+        notify();
+      }
+
     function getSelectedEntityId() {
         return selectedEntityId;
     }
@@ -24,13 +28,13 @@ export function createEditorState() {
     }
 
     function isComponentCollapsed(entityId, componentType){
-        return collapsedComponents[`${entityId}: ${componentType}`] 
+        return collapsedComponents[`${entityId}:${componentType}`] 
                 === true;
     }
 
     function toggleComponent(entityId, componentType) {
         const key =
-            `${entityId}: ${componentType}`;
+            `${entityId}:${componentType}`;
 
             collapsedComponents[key] =
                 !collapsedComponents[key];
@@ -62,5 +66,6 @@ export function createEditorState() {
         toggleComponent,
         toggleGroup,
         subscribe,
+        notifyChange,
     }
 }
