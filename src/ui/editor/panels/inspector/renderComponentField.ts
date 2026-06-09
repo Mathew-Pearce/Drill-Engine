@@ -75,6 +75,7 @@ export function renderComponentField(
 
   const optionsList =
   component.options?.[key];
+  
 
   panel.appendChild(
     createFieldRow(

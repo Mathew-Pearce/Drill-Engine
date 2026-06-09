@@ -1,42 +1,32 @@
-import { getBullet }
-from '../entities/pools/bulletPool';
-
-import { patterns }
-from './patterns/patternsIndex';
-
-import { getEntitiesByType } from '../utils/getEntitiesByType'
+import { patterns } from './patterns/patternsIndex';
+import { getComponent } from '../components/core/getComponent';
 
 export function emitterSystem(state) {
-
-  const emitters =
-  getEntitiesByType(
-    state.entities,
-    'emitter'
-  );
-
-console.log(
-  '[QUERY]',
-  emitters.length
-);
 
   const newEntities =
     [...state.entities];
 
   state.entities.forEach(entity => {
 
-    if (entity.type !== 'emitter')
+    const emitter =
+      getComponent(
+        entity,
+        'emitter'
+      );
+
+    if (!emitter)
       return;
 
-    entity.timer++;
+    emitter.timer++;
 
-    if (entity.timer < entity.fireRate)
+    if (emitter.timer < emitter.fireRate)
       return;
 
-    entity.timer = 0;
+    emitter.timer = 0;
 
     const pattern =
       patterns[
-        entity.pattern
+        emitter.pattern
       ];
 
     if (!pattern)

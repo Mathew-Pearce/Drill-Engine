@@ -37,6 +37,8 @@ export function createSelectField(
         option
       );
     });
+
+    select.value = value;
   
     select.onfocus = () => {
       options.onFocus?.();

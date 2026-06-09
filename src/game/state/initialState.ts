@@ -45,11 +45,6 @@ export const initialState = {
           x: 400,
           y: 300,
         },
-        fireRate: 20, //ticks between shots
-        timer: 0, 
-
-        pattern: 'radial',
-        bulletCount: 12,
 
         direction: {
           x: 1,
@@ -81,11 +76,6 @@ export const initialState = {
           x: 400, 
           y: 100
         }, 
-        
-        fireRate: 10,
-
-        timer: 0,
-        pattern: 'directional',
 
         direction: {
           x: 0,
@@ -121,12 +111,6 @@ export const initialState = {
           x: 700,
           y: 300,
         },
-
-        fireRate: 20,
-
-        timer: 0,
-
-        pattern: 'aimed',
 
         health: 1,
 
