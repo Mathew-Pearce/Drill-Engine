@@ -1,5 +1,6 @@
 import { createHealthComponent } from '../components/health/createHealthComponent'
 import { createTransformComponent } from '../components/transform/createTransformComponent'
+import { createEmitterComponent } from '../components/emitter/createEmitterComponent'
 
 export const initialState = {
     game: {
@@ -60,26 +61,14 @@ export const initialState = {
         maxHealth: 1,
 
         components: {
-            emitter: {
-              type: 'emitter',
-              visible: true,
-          
-              pattern: 'radial',
-              fireRate: 20,
-              bulletCount: 12,
-          
-              canChangePattern: true,
-          
-              options: {
-                pattern: [
-                  'radial',
-                  'directional',
-                  'aimed'
-                ]
-              }
-            }
-          },
-
+          emitter: createEmitterComponent({
+            pattern: 'radial',
+            fireRate: 20,
+            bulletCount: 12,
+            canChangePattern: true,
+            visible: true,
+          }),
+        },
           markedForRemoval: false,
         },
       {
@@ -101,14 +90,24 @@ export const initialState = {
         direction: {
           x: 0,
           y: 1,
+        },
 
           health: 1,
 
           maxHealth: 1,
 
+          components: {
+            emitter: createEmitterComponent({
+              pattern: 'directional',
+              fireRate: 10,
+              bulletCount: 12,
+              canChangePattern: true,
+              visible: true,
+            }),
+          },
+
           markedForRemoval: false,
         },
-      },
       {
         id: 'aimed_emmiter',
 
@@ -132,6 +131,16 @@ export const initialState = {
         health: 1,
 
         maxHealth: 1,
+
+        components: {
+          emitter: createEmitterComponent({
+            pattern: 'aimed',
+            fireRate: 20,
+            bulletCount: 12,
+            canChangePattern: true,
+            visible: true,
+          }),
+        },
 
         markedForRemoval: false,
       }
