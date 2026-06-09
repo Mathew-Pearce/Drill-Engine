@@ -31,11 +31,16 @@ export function renderComponentSection(
   header.style.cursor =
     'pointer';
 
+  header.onpointerdown = () => {
+    editor.lockRegion('inspector')
+  }
+
   header.onclick = () => {
     editor.toggleComponent(
       entity.id,
       component.type
     );
+    editor.unlockRegion('inspector')
   };
 
   panel.appendChild(

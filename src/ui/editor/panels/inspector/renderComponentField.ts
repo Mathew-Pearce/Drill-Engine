@@ -64,8 +64,8 @@ export function renderComponentField(
           });
         },
         {
-          onFocus: () => editor.beginInteraction(),
-          onBlur: () => editor.endInteraction(),
+          onFocus: () => editor.lockRegion('inspector'),
+          onBlur: () => editor.unlockRegion('inspector'),
         }
       )
     );
@@ -94,8 +94,8 @@ export function renderComponentField(
       {
         optionsList,
   
-        onFocus: () => editor.beginInteraction(),
-        onBlur: () => editor.endInteraction(),
+        onFocus: () => editor.lockRegion('inspector'),
+        onBlur: () => editor.unlockRegion('inspector'),
       }
     )
   );

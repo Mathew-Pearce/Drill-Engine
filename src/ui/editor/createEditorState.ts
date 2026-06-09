@@ -6,9 +6,7 @@ export function createEditorState() {
 
     let collapsedComponents = {};
 
-    let isInteracting = false;
-
-    let isHierarchyInteracting = false;
+    let lockedRegions = {};
 
     const listeners = [];
 
@@ -22,34 +20,23 @@ export function createEditorState() {
         notify();
       }
 
-    function beginInteraction() {
-        isInteracting = true;
-    }
+      function lockRegion(name) {
 
-    function endInteraction() {
-
-        isInteracting =
+        lockedRegions[name] =
+          true;
+      }
+      
+      function unlockRegion(name) {
+      
+        lockedRegions[name] =
           false;
       
         notify();
       }
-
-      function getIsInteracting() {
-
-        return isInteracting;
-      }
-
-      function beginHierarchyInteraction() {
-        isHierarchyInteracting = true;
-      }
       
-      function endHierarchyInteraction() {
-        isHierarchyInteracting = false;
-        notify();
-      }
+      function isRegionLocked(name) {
       
-      function getIsHierarchyInteracting() {
-        return isHierarchyInteracting;
+        return lockedRegions[name] === true;
       }
 
     function getSelectedEntityId() {
@@ -60,7 +47,7 @@ export function createEditorState() {
         selectedEntityId = id;
         notify();
     }
-
+    
     function isComponentCollapsed(entityId, componentType){
         return collapsedComponents[`${entityId}:${componentType}`] 
                 === true;
@@ -102,11 +89,8 @@ export function createEditorState() {
         subscribe,
         notifyChange,
 
-        beginInteraction,
-        endInteraction,
-        getIsInteracting,
-        beginHierarchyInteraction,
-        endHierarchyInteraction,
-        getIsHierarchyInteracting
+        lockRegion,
+        unlockRegion,
+        isRegionLocked,     
     }
 }

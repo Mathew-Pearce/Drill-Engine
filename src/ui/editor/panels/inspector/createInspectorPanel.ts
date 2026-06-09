@@ -35,7 +35,7 @@ export function createInspectorPanel(
       editor.getSelectedEntityId();
 
       const state =
-  runtime.getState();
+        runtime.getState();
   
     const entity =
       state.entities.find(
@@ -80,14 +80,17 @@ export function createInspectorPanel(
   );
   
   runtime.subscribe(() => {
-
-    if (editor.getIsInteracting())
-      return;
+  
+    if (
+      editor.isRegionLocked(
+        'inspector'
+      )
+    ) return;
   
     render();
   });
-
+  
   render();
-
+  
   return panel;
-}
+};

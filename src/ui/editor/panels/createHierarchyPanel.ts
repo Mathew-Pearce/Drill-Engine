@@ -15,96 +15,100 @@ export function createHierarchyPanel(
   panel.style.flexShrink =
     '0';
 
-    function render(state) {
+  function render(state) {
 
-      panel.innerHTML = '';
-    
-      panel.appendChild(
-        createTitle('Hierarchy')
-      );
-    
-      const groups = {};
-    
-      state.entities.forEach(entity => {
-    
-        if (!groups[entity.type]) {
-          groups[entity.type] = [];
-        }
-    
-        groups[entity.type].push(entity);
-      });
-    
-      Object
-        .keys(groups)
-        .forEach(type => {
-    
-          const entities =
-            groups[type];
-    
-          const isCollapsed =
-            editor.isGroupCollapsed(type);
-    
-          const groupHeader =
-            document.createElement('div');
-    
-          groupHeader.textContent =
-            `${isCollapsed ? '▶' : '▼'} ${type} (${entities.length})`;
-    
-          groupHeader.style.cursor =
-            'pointer';
-          
-          groupHeader.onpointerdown = () => {
-              editor.beginHierarchyInteraction();
-            };
-    
-          groupHeader.onclick = () => {
-            editor.toggleGroup(type);
-            editor.endHierarchyInteraction();
-          };
-    
-          panel.appendChild(
-            groupHeader
-          );
-    
-          if (isCollapsed) return;
-    
-          entities.forEach(entity => {
-    
-            const item =
-              document.createElement('div');
-    
-            item.textContent =
-              `  ${entity.id}`;
-    
-            item.style.cursor =
-              'pointer';
-    
-            item.style.paddingLeft =
-              '12px';
+    panel.innerHTML = '';
 
-            item.onpointerdown = () => {
-              editor.beginHierarchyInteraction();
-            }
-    
-            item.onclick = () => {
-              editor.selectEntity(entity.id);
-              editor.endHierarchyInteraction();
-            };
-    
-            panel.appendChild(
-              item
-            );
-          });
-        });
-    }
+    panel.appendChild(
+      createTitle('Hierarchy')
+    );
 
-    runtime.subscribe(state => {
+    const groups = {};
 
-      if (editor.getIsHierarchyInteracting())
-        return;
-    
-      render(state);
+    state.entities.forEach(entity => {
+
+      if (!groups[entity.type]) {
+        groups[entity.type] = [];
+      }
+
+      groups[entity.type].push(entity);
     });
+
+    Object
+      .keys(groups)
+      .forEach(type => {
+
+        const entities =
+          groups[type];
+
+        const isCollapsed =
+          editor.isGroupCollapsed(type);
+
+        const groupHeader =
+          document.createElement('div');
+
+        groupHeader.textContent =
+          `${isCollapsed ? '▶' : '▼'} ${type} (${entities.length})`;
+
+        groupHeader.style.cursor =
+          'pointer';
+
+        groupHeader.onpointerdown = () => {
+          editor.lockRegion('hierarchy');
+        };
+
+        groupHeader.onclick = () => {
+          editor.toggleGroup(type);
+          editor.unlockRegion('hierarchy');
+        };
+
+        panel.appendChild(
+          groupHeader
+        );
+
+        if (isCollapsed)
+          return;
+
+        entities.forEach(entity => {
+
+          const item =
+            document.createElement('div');
+
+          item.textContent =
+            `  ${entity.id}`;
+
+          item.style.cursor =
+            'pointer';
+
+          item.style.paddingLeft =
+            '12px';
+
+          item.onpointerdown = () => {
+            editor.lockRegion('hierarchy');
+          };
+
+          item.onclick = () => {
+            editor.selectEntity(entity.id);
+            editor.unlockRegion('hierarchy');
+          };
+
+          panel.appendChild(
+            item
+          );
+        });
+      });
+  }
+
+  runtime.subscribe(state => {
+
+    if (
+      editor.isRegionLocked(
+        'hierarchy'
+      )
+    ) return;
+
+    render(state);
+  });
 
   editor.subscribe(() => {
     render(
@@ -115,6 +119,6 @@ export function createHierarchyPanel(
   render(
     runtime.getState()
   );
-  
+
   return panel;
 }
