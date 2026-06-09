@@ -1,8 +1,8 @@
 
 export const runtimeConfig = {
-    defaultTickRate: 1000,
+    defaultTickRate: 100,
 
-    fastForwardRate: 100,
+    fastForwardRate: 50,
 
     resetOnStop: false,
 }

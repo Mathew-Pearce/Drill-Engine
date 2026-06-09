@@ -53,14 +53,35 @@ export const initialState = {
         direction: {
           x: 1,
           y: 0,
+       },
 
-          health: 1,
+        health: 1,
 
-          maxHealth: 1,
+        maxHealth: 1,
+
+        components: {
+            emitter: {
+              type: 'emitter',
+              visible: true,
+          
+              pattern: 'radial',
+              fireRate: 20,
+              bulletCount: 12,
+          
+              canChangePattern: true,
+          
+              options: {
+                pattern: [
+                  'radial',
+                  'directional',
+                  'aimed'
+                ]
+              }
+            }
+          },
 
           markedForRemoval: false,
-        }
-      },
+        },
       {
         id: 'emitter_2',
         type: 'emitter',

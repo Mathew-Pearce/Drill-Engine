@@ -35,7 +35,8 @@ export function renderComponentField(
   if (
     key === 'type' ||
     key === 'label' ||
-    key === 'visible'
+    key === 'visible' ||
+    key === 'options'
   ) return;
 
   if (
@@ -72,6 +73,9 @@ export function renderComponentField(
     return;
   }
 
+  const optionsList =
+  component.options?.[key];
+
   panel.appendChild(
     createFieldRow(
       key,
@@ -87,6 +91,8 @@ export function renderComponentField(
         });
       },
       {
+        optionsList,
+  
         onFocus: () => editor.beginInteraction(),
         onBlur: () => editor.endInteraction(),
       }

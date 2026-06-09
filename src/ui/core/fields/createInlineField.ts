@@ -1,5 +1,7 @@
 import { createReadOnlyField } from './createReadOnlyField';
 import { createNumberField } from './createNumberField';
+import { createBooleanField } from './createBooleanField';
+import { createSelectField} from './createSelectField';
 
 export function createInlineField(
   label,
@@ -39,15 +41,28 @@ export function createInlineField(
     '0';
 
     const field =
-    typeof value === 'number'
-      ? createNumberField(
+    options.optionsList
+      ? createSelectField(
           value,
+          options.optionsList,
           onChange,
           options
         )
-      : createReadOnlyField(
-          value
-        );
+      : typeof value === 'number'
+        ? createNumberField(
+            value,
+            onChange,
+            options
+          )
+        : typeof value === 'boolean'
+          ? createBooleanField(
+              value,
+              onChange,
+              options
+            )
+          : createReadOnlyField(
+              value
+            );
 
   row.appendChild(labelElement);
   row.appendChild(field);
