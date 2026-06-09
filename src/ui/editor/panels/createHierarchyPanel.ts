@@ -52,9 +52,14 @@ export function createHierarchyPanel(
     
           groupHeader.style.cursor =
             'pointer';
+          
+          groupHeader.onpointerdown = () => {
+              editor.beginHierarchyInteraction();
+            };
     
           groupHeader.onclick = () => {
             editor.toggleGroup(type);
+            editor.endHierarchyInteraction();
           };
     
           panel.appendChild(
@@ -76,9 +81,14 @@ export function createHierarchyPanel(
     
             item.style.paddingLeft =
               '12px';
+
+            item.onpointerdown = () => {
+              editor.beginHierarchyInteraction();
+            }
     
             item.onclick = () => {
               editor.selectEntity(entity.id);
+              editor.endHierarchyInteraction();
             };
     
             panel.appendChild(
@@ -88,9 +98,13 @@ export function createHierarchyPanel(
         });
     }
 
-  runtime.subscribe(
-    render
-  );
+    runtime.subscribe(state => {
+
+      if (editor.getIsHierarchyInteracting())
+        return;
+    
+      render(state);
+    });
 
   editor.subscribe(() => {
     render(

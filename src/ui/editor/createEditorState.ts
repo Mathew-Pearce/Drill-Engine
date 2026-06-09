@@ -8,6 +8,8 @@ export function createEditorState() {
 
     let isInteracting = false;
 
+    let isHierarchyInteracting = false;
+
     const listeners = [];
 
     function notify() {
@@ -35,6 +37,19 @@ export function createEditorState() {
       function getIsInteracting() {
 
         return isInteracting;
+      }
+
+      function beginHierarchyInteraction() {
+        isHierarchyInteracting = true;
+      }
+      
+      function endHierarchyInteraction() {
+        isHierarchyInteracting = false;
+        notify();
+      }
+      
+      function getIsHierarchyInteracting() {
+        return isHierarchyInteracting;
       }
 
     function getSelectedEntityId() {
@@ -90,5 +105,8 @@ export function createEditorState() {
         beginInteraction,
         endInteraction,
         getIsInteracting,
+        beginHierarchyInteraction,
+        endHierarchyInteraction,
+        getIsHierarchyInteracting
     }
 }
