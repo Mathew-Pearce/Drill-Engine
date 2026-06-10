@@ -1,7 +1,4 @@
-import { getEntitiesById } from '../utils/getEntitiesById';
-import { getEntitiesByType } from '../utils/getEntitiesByType';
 import { getComponent } from '../components/core/getComponent';
-import { damageEntity } from '../utils/damageEntity';
 import { isColliding } from '../utils/isColliding';
 import { collisionRules } from '../components/collider/collisionRules'
 import { canLayersCollide } from '../components/collider/canLayersCollide'
@@ -49,19 +46,13 @@ export function collisionSystem(state) {
       ) return
 
       state.events.push({
-        type: 'collision',
+        type: 'contact',
       
-        sourceId:
-          source.id,
+        sourceId: source.id,
+        targetId: target.id,
       
-        targetId:
-          target.id,
-      
-        sourceLayer:
-          sourceCollider.layer,
-      
-        targetLayer:
-          targetCollider.layer,
+        sourceLayer: sourceCollider.layer,
+        targetLayer: targetCollider.layer,
       });
 
     });

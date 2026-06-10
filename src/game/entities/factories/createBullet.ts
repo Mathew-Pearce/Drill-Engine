@@ -1,5 +1,7 @@
 import { createRenderableComponent } from '../../components/renderable/createRenderableComponent'
 import { createColliderComponent } from '../../components/collider/createColliderComponent'
+import { createDamageComponent } from '../../components/damage/createDamageComponent'
+
 export function createBullet() {
     return{
         id: crypto.randomUUID(),
@@ -23,6 +25,12 @@ export function createBullet() {
                 layer: 'bullet',
                 width: 6,
                 height: 6,
+                visible: true,
+            }),
+            
+            damage: createDamageComponent({
+                amount: 1,
+                removeOnContact: true,
                 visible: true,
             })
         }
