@@ -1,33 +1,61 @@
 import { getEntitiesById } from '../utils/getEntitiesById';
 import { getEntitiesByType } from '../utils/getEntitiesByType';
+import { getComponent } from '../components/core/getComponent';
 import { damageEntity } from '../utils/damageEntity';
 import { isColliding } from '../utils/isColliding';
+import { collisionRules } from '../components/collider/collisionRules'
+import { canLayersCollide } from '../components/collider/canLayersCollide'
 
 export function collisionSystem(state) {
 
-  const player = getEntitiesById(
-    state.entities,
-    'player'
-  );
+  state.entities.forEach(source => {
 
-  if(!player)
-    return state;
+    const sourceCollider =
+      getComponent(
+        source,
+        'collider'
+      );
 
-  const bullets = getEntitiesByType(
-    state.entities,
-    'bullet'
-  );
+    if (!sourceCollider)
+      return;
 
-  bullets.forEach(bullet => {
+    state.entities.forEach(target => {
 
-    if (isColliding(player, bullet)) {
+      if (source === target)
+        return;
 
-      damageEntity(player, 1);
+      const targetCollider =
+        getComponent(
+          target,
+          'collider'
+        );
 
-      console.log(player.health);
+      if (!targetCollider)
+        return;
 
-      bullet.markedForRemoval = true;
-    }
+      if (
+        !canLayersCollide(
+          sourceCollider.layer,
+          targetCollider.layer,
+          collisionRules
+        )
+      ) return;
+
+      if (
+        !isColliding(
+          source,
+          target
+        )
+      ) return;
+
+      damageEntity(
+        target,
+        1
+      );
+
+      source.markedForRemoval =
+        true;
+    });
   });
 
   return state;
