@@ -22,7 +22,7 @@ export function createBullet() {
             }),
 
             collider: createColliderComponent({
-                layer: 'bullet',
+                layer: 'enemyBullet',
                 width: 6,
                 height: 6,
                 visible: true,

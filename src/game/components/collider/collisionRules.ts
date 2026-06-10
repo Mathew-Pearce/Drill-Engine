@@ -1,5 +1,12 @@
 export const collisionRules = {
-    bullet: [
+    enemyBullet: [
         'player',
-    ]
+        'wall',
+    ],
+
+    player: [
+        'enemy',
+        'wall'
+    ],
+    
 }
