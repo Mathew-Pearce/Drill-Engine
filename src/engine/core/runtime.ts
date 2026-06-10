@@ -86,12 +86,15 @@ export function createRuntime({
 
   function processSystems() {
 
+    currentState.events =
+      [];
+  
     systems.forEach(system => {
-
+  
       currentState =
         system(currentState);
     });
-
+  
     notifyListeners();
   }
 

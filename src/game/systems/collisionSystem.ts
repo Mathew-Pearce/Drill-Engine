@@ -33,28 +33,37 @@ export function collisionSystem(state) {
       if (!targetCollider)
         return;
 
+        if (
+          !isColliding(
+            source,
+            target
+          )
+        ) return;
+
       if (
         !canLayersCollide(
           sourceCollider.layer,
           targetCollider.layer,
           collisionRules
         )
-      ) return;
+      ) return
 
-      if (
-        !isColliding(
-          source,
-          target
-        )
-      ) return;
+      state.events.push({
+        type: 'collision',
+      
+        sourceId:
+          source.id,
+      
+        targetId:
+          target.id,
+      
+        sourceLayer:
+          sourceCollider.layer,
+      
+        targetLayer:
+          targetCollider.layer,
+      });
 
-      damageEntity(
-        target,
-        1
-      );
-
-      source.markedForRemoval =
-        true;
     });
   });
 

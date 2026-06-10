@@ -8,6 +8,8 @@ export const initialState = {
     game: {
       isGameOver: false,
   },
+    events: [],
+    
     entities: [
       {
         id: 'player',

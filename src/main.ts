@@ -22,7 +22,7 @@ import { playerMovementSystem }
 from './game/systems/playerMovementSystem'
 
 import { collisionSystem } from './game/systems/collisionSystem'
-
+import { collisionResponseSystem } from './game/systems/collisionResponseSystem'
 import { lifetimeSystem } 
 from './game/systems/lifetimeSystem'
 
@@ -46,9 +46,10 @@ const runtime =
     systems: [
       emitterSystem,
       playerMovementSystem,
-      collisionSystem,
       movementSystem,
       lifetimeSystem,
+      collisionSystem,
+      collisionResponseSystem,
       deathSystem, 
       cleanUpSystem,
       gameOverSystem
@@ -70,13 +71,14 @@ const runtime =
 runtime.subscribe(state => {
 
   renderer.render(state);
-  // Get some feedback about bullets in the scene. 
-  const bullets = 
-    getEntitiesByType(state.entities,'bullet');
+  // Get some feedback about bullets in the scene. Saved for later.
+  // const bullets = 
+  //   getEntitiesByType(state.entities,'bullet');
 
-  console.log(
-    `Bullets: ${bullets.length}`
-  );
+  // console.log(
+  //   `Bullets: ${bullets.length}`
+
+  // );
 });
 
 
