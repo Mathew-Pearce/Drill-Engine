@@ -48,6 +48,9 @@ const direction =
   const center =
     getEntityCenter(entity);
 
+  if (!center)
+    return;
+
   bullet.position = {
 
     x:

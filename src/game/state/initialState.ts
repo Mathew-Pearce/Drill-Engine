@@ -57,7 +57,7 @@ export const initialState = {
           x: 400,
           y: 300,
         },
-        size: 20,
+        
         direction: {
           x: 1,
           y: 0,
@@ -92,7 +92,7 @@ export const initialState = {
           x: 400, 
           y: 100
         }, 
-        size: 20,
+        
         direction: {
           x: 0,
           y: 1,
@@ -130,7 +130,7 @@ export const initialState = {
           x: 700,
           y: 300,
         },
-        size: 20,
+        
 
         health: 1,
 

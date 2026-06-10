@@ -1,26 +1,28 @@
-/**
- * Calculates the centre point of an entity based on its
- * position and size.
- *
- * Useful for:
- * - projectile spawning
- * - aiming calculations
- * - distance measurements
- * - future rotation systems
- *
- * @param entity Entity containing position and size properties.
- * @returns The centre position of the entity.
- */
+import { getPosition } from '../components/transform/getPosition';
+import { getRenderableSize } from '../components/renderable/getRenderableSize';
+
 export function getEntityCenter(entity) {
 
-    return {
-  
-      x:
-        entity.position.x +
-        entity.size / 2,
-  
-      y:
-        entity.position.y +
-        entity.size / 2,
-    };
+  const position =
+    getPosition(entity);
+
+  const size =
+    getRenderableSize(entity);
+
+  if (
+    !position ||
+    !size
+  ) {
+    return null;
   }
+
+  return {
+    x:
+      position.x +
+      size.width / 2,
+
+    y:
+      position.y +
+      size.height / 2,
+  };
+}

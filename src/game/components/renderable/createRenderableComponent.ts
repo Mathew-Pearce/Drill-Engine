@@ -2,6 +2,8 @@ export function createRenderableComponent({
     color = 'white',
     shape = 'square',
     size = 5,
+    width,
+    height,
     visible = 'true'
 }) 
 {
@@ -11,6 +13,8 @@ export function createRenderableComponent({
 
         color,
         shape,
-        size
+        size,
+        width,
+        height
     };
 }

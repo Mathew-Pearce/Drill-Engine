@@ -14,6 +14,9 @@ export function directionalPattern(
 
   const center = getEntityCenter(entity);
 
+  if(!center)
+    return;
+
   bullet.position = {
     x:
     center.x -
