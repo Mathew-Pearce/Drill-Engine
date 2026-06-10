@@ -1,19 +1,5 @@
 import { getPosition } from '../components/transform/getPosition';
-
-/**
- * Performs a simple axis-aligned bounding box collision test
- * using entity positions and sizes.
- *
- * Useful for:
- * - projectile impacts
- * - player interactions
- * - trigger zones
- *
- * 
- * @param a First entity.
- * @param b Second entity.
- * @returns True if the entities overlap, otherwise false.
- */
+import { getComponent } from '../components/core/getComponent';
 
 export function isColliding(a, b) {
 
@@ -23,22 +9,36 @@ export function isColliding(a, b) {
   const positionB =
     getPosition(b);
 
+  const colliderA =
+    getComponent(
+      a,
+      'collider'
+    );
+
+  const colliderB =
+    getComponent(
+      b,
+      'collider'
+    );
+
   if (
     !positionA ||
-    !positionB
+    !positionB ||
+    !colliderA ||
+    !colliderB
   ) return false;
 
   return (
     positionA.x <
-      positionB.x + b.size &&
+      positionB.x + colliderB.width &&
 
-    positionA.x + a.size >
+    positionA.x + colliderA.width >
       positionB.x &&
 
     positionA.y <
-      positionB.y + b.size &&
+      positionB.y + colliderB.height &&
 
-    positionA.y + a.size >
+    positionA.y + colliderA.height >
       positionB.y
   );
 }

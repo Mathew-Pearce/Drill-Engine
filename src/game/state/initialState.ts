@@ -2,6 +2,7 @@ import { createHealthComponent } from '../components/health/createHealthComponen
 import { createTransformComponent } from '../components/transform/createTransformComponent'
 import { createEmitterComponent } from '../components/emitter/createEmitterComponent'
 import { createRenderableComponent } from '../components/renderable/createRenderableComponent'
+import { createColliderComponent} from '../components/collider/createColliderComponent'
 
 export const initialState = {
     game: {
@@ -11,8 +12,6 @@ export const initialState = {
       {
         id: 'player',
         type: 'player',
-
-        size: 20,
   
         velocity: {
           x: 1,
@@ -39,6 +38,13 @@ export const initialState = {
             size: 20,
             visible: true
           }),
+
+          collider: createColliderComponent({
+            layer: 'player',
+            width: 20,
+            height: 20,
+            visible: true
+          })
         },
 
         markedForRemoval: false,
@@ -47,13 +53,11 @@ export const initialState = {
         id: 'emitter_1',
         type: 'emitter',
 
-        size: 20,
-
         position: {
           x: 400,
           y: 300,
         },
-
+        size: 20,
         direction: {
           x: 1,
           y: 0,
@@ -84,13 +88,11 @@ export const initialState = {
         id: 'emitter_2',
         type: 'emitter',
 
-        size: 20,
-
         position: {
           x: 400, 
           y: 100
         }, 
-
+        size: 20,
         direction: {
           x: 0,
           y: 1,
@@ -124,12 +126,11 @@ export const initialState = {
 
         target: 'player',
 
-        size: 20,
-
         position: {
           x: 700,
           y: 300,
         },
+        size: 20,
 
         health: 1,
 

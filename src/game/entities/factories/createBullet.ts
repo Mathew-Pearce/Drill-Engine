@@ -1,5 +1,5 @@
 import { createRenderableComponent } from '../../components/renderable/createRenderableComponent'
-
+import { createColliderComponent } from '../../components/collider/createColliderComponent'
 export function createBullet() {
     return{
         id: crypto.randomUUID(),
@@ -17,8 +17,14 @@ export function createBullet() {
             shape: 'square',
             size: 6,
             visible: true
-            })
+            }),
 
+            collider: createColliderComponent({
+                layer: 'bullet',
+                width: 6,
+                height: 6,
+                visible: true,
+            })
         }
     };
 }
