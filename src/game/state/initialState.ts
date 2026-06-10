@@ -1,6 +1,7 @@
 import { createHealthComponent } from '../components/health/createHealthComponent'
 import { createTransformComponent } from '../components/transform/createTransformComponent'
 import { createEmitterComponent } from '../components/emitter/createEmitterComponent'
+import { createRenderableComponent } from '../components/renderable/createRenderableComponent'
 
 export const initialState = {
     game: {
@@ -31,6 +32,13 @@ export const initialState = {
             currentHealth: 3,
             visible: true,
           }),
+
+          renderable: createRenderableComponent({
+            color: 'cyan',
+            shape: 'square',
+            size: 20,
+            visible: true
+          }),
         },
 
         markedForRemoval: false,
@@ -60,8 +68,14 @@ export const initialState = {
             pattern: 'radial',
             fireRate: 20,
             bulletCount: 12,
-            canChangePattern: true,
             visible: true,
+          }),
+          
+          renderable: createRenderableComponent({
+            color: 'magenta',
+            shape: 'square',
+            size: 20,
+            visible: true
           }),
         },
           markedForRemoval: false,
@@ -91,8 +105,13 @@ export const initialState = {
               pattern: 'directional',
               fireRate: 10,
               bulletCount: 12,
-              canChangePattern: true,
               visible: true,
+            }),
+            renderable: createRenderableComponent({
+              color: 'magenta',
+              shape: 'square',
+              size: 20,
+              visible: true
             }),
           },
 
@@ -121,8 +140,14 @@ export const initialState = {
             pattern: 'aimed',
             fireRate: 20,
             bulletCount: 12,
-            canChangePattern: true,
             visible: true,
+          }),
+
+          renderable: createRenderableComponent({
+            color: 'magenta',
+            shape: 'square',
+            size: 20,
+            visible: true
           }),
         },
 

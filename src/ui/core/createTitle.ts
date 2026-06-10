@@ -2,7 +2,7 @@ export function createTitle(
     text: string
 ){
     const title =
-        document.createElement('h2');
+        document.createElement('h1');
 
         title.textContent =
             text;

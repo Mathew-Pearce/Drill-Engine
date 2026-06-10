@@ -35,6 +35,8 @@ import { gameOverSystem } from './game/systems/gameOverSystem'
 
 import { cleanUpSystem } from './game/systems/cleanUpSystem'
 
+import { getEntitiesByType } from './game/utils/getEntitiesByType'
+
 
 const runtime =
   createRuntime({
@@ -69,13 +71,11 @@ runtime.subscribe(state => {
 
   renderer.render(state);
   // Get some feedback about bullets in the scene. 
-  const bullets =
-    state.entities.filter(
-      e => e.type === 'bullet'
-    ).length;
+  const bullets = 
+    getEntitiesByType(state.entities,'bullet');
 
   console.log(
-    `Bullets: ${bullets}`
+    `Bullets: ${bullets.length}`
   );
 });
 

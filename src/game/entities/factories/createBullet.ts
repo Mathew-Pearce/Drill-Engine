@@ -1,3 +1,5 @@
+import { createRenderableComponent } from '../../components/renderable/createRenderableComponent'
+
 export function createBullet() {
     return{
         id: crypto.randomUUID(),
@@ -7,6 +9,16 @@ export function createBullet() {
         velocity: { x: 0, y: 0},
         lifetime: 120,
         active: true,
-        markedForRemoval: false
+        markedForRemoval: false,
+
+        components: {
+            renderable: createRenderableComponent({
+            color: 'red',
+            shape: 'square',
+            size: 6,
+            visible: true
+            })
+
+        }
     };
 }

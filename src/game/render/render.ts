@@ -1,50 +1,42 @@
-import { getPosition } from '../components/transform/getPosition'
+import { getPosition } from '../components/transform/getPosition';
+import { getComponent } from '../components/core/getComponent';
 
 export function createRenderer(canvas: HTMLCanvasElement) {
 
-    const ctx = canvas.getContext('2d')!;
-  
-    function render(state) {
-  
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-      state.entities.forEach(entity => {
+  const ctx = canvas.getContext('2d')!;
 
-        const position = 
-          getPosition(entity);
-  
-        if (!position) return;
-  
-        // DEFAULTS
-        let color = 'white';
-        let size = 5;
-  
-        // TYPE STYLING
-        if (entity.type === 'bullet') {
-          color = 'red';
-          size = entity.size;
-        }
-  
-        if (entity.type === 'player') {
-          color = 'cyan';
-          size =  entity.size;
-        }
-  
-        if (entity.type === 'emitter') {
-          color = 'magenta';
-          size =  entity.size;
-        }
-  
-        ctx.fillStyle = color;
-  
-        ctx.fillRect(
-          position.x,
-          position.y,
-          size,
-          size
-        );
-      });
-    }
-  
-    return { render };
+  function render(state) {
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    state.entities.forEach(entity => {
+
+      const position =
+        getPosition(entity);
+
+      if (!position)
+        return;
+
+      const renderable =
+        getComponent(entity, 'renderable');
+
+      let color =
+        renderable?.color ?? 'white';
+
+      let size =
+        renderable?.size ?? entity.size ?? 5;
+
+      ctx.fillStyle =
+        color;
+
+      ctx.fillRect(
+        position.x,
+        position.y,
+        size,
+        size
+      );
+    });
   }
+
+  return { render };
+}
