@@ -5,7 +5,6 @@ export const collisionRules = {
     ],
 
     player: [
-        'enemy',
         'wall'
     ],
     

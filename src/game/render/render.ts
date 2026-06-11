@@ -1,5 +1,6 @@
 import { getPosition } from '../components/transform/getPosition';
 import { getComponent } from '../components/core/getComponent';
+import { getRenderableSize } from '../components/renderable/getRenderableSize';
 
 export function createRenderer(canvas: HTMLCanvasElement) {
 
@@ -7,7 +8,12 @@ export function createRenderer(canvas: HTMLCanvasElement) {
 
   function render(state) {
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
 
     state.entities.forEach(entity => {
 
@@ -18,22 +24,28 @@ export function createRenderer(canvas: HTMLCanvasElement) {
         return;
 
       const renderable =
-        getComponent(entity, 'renderable');
+        getComponent(
+          entity,
+          'renderable'
+        );
 
-      let color =
-        renderable?.color ?? 'white';
+      if (!renderable)
+        return;
 
-      let size =
-        renderable?.size ?? entity.size ?? 5;
+      const size =
+        getRenderableSize(entity);
+
+      if (!size)
+        return;
 
       ctx.fillStyle =
-        color;
+        renderable.color;
 
       ctx.fillRect(
         position.x,
         position.y,
-        size,
-        size
+        size.width,
+        size.height
       );
     });
   }

@@ -22,7 +22,11 @@ import { playerMovementSystem }
 from './game/systems/playerMovementSystem'
 
 import { collisionSystem } from './game/systems/collisionSystem'
+
 import { damageSystem } from './game/systems/damageSystem'
+
+import { contactRemovalSystem } from './game/systems/contactRemovalSystem'
+
 import { lifetimeSystem } 
 from './game/systems/lifetimeSystem'
 
@@ -50,6 +54,7 @@ const runtime =
       lifetimeSystem,
       collisionSystem,
       damageSystem,
+      contactRemovalSystem,
       deathSystem, 
       cleanUpSystem,
       gameOverSystem

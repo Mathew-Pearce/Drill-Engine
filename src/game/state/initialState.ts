@@ -155,6 +155,35 @@ export const initialState = {
         },
 
         markedForRemoval: false,
+      },
+      {
+        id: 'wall_1',
+        type: 'wall',
+      
+        components: {
+          transform: createTransformComponent({
+            x: 300,
+            y: 220,
+            visible: true,
+          }),
+      
+          renderable: createRenderableComponent({
+            color: 'gray',
+            shape: 'square',
+            width: 160,
+            height: 40,
+            visible: true,
+          }),
+      
+          collider: createColliderComponent({
+            layer: 'wall',
+            width: 160,
+            height: 40,
+            visible: true,
+          }),
+        },
+      
+        markedForRemoval: false,
       }
     ],
   };
