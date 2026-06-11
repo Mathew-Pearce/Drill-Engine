@@ -1,12 +1,14 @@
 import { getEntitiesById } from '../utils/getEntitiesById';
 import { getComponent } from '../components/core/getComponent';
 import { damageEntity } from '../utils/damageEntity';
+import { processContactEvents} from '../events/processContactEvents'
 
 export function damageSystem(state) {
 
-  state.events.forEach(event => {
-
-    if (event.type !== 'contact')
+  processContactEvents(
+    state,
+    event => {
+      if (event.type !== 'contact')
       return;
 
     const source =
@@ -48,7 +50,8 @@ export function damageSystem(state) {
       source.markedForRemoval =
         true;
     }
-  });
+    }
+  )
 
   return state;
 }

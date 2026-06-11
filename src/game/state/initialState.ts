@@ -13,26 +13,27 @@ export const initialState = {
     
     entities: [
       createPlayer(),
-      createEmitter({
-      }),
+      createEmitter(),
 
       createEmitter({
         id: 'emitter_1',
-
         x: 400,
         y: 100,
+        
 
         pattern: 'directional',
       }),
 
-      createEmitter({
+      createEmitter(
+        {
         id: 'emmiter_2',
 
         x: 700,
         y: 300,
 
         pattern: 'aimed',
-      }), 
+        }
+      ), 
 
       createWall(),
     ],

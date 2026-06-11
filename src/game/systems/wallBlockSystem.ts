@@ -1,11 +1,15 @@
 import { getEntitiesById } from '../utils/getEntitiesById';
 import { getPosition } from '../components/transform/getPosition';
+import { processContactEvents} from '../events/processContactEvents'
 
 export function wallBlockSystem(state) {
 
-  state.events.forEach(event => {
-
-    if (event.type !== 'contact')
+  processContactEvents(
+    state,
+    event => {
+  
+      // wall logic
+      if (event.type !== 'contact')
       return;
 
     const isPlayerWallContact =
@@ -37,7 +41,8 @@ export function wallBlockSystem(state) {
 
     position.y =
       player.previousPosition.y;
-  });
+    }
+  );
 
   return state;
 }
