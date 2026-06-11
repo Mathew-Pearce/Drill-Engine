@@ -8,6 +8,12 @@ export function createBooleanField(
   
     input.type =
       'checkbox';
+
+    input.style.width 
+      = '16px'
+
+    input.style.height = 
+      '16px';
   
     input.checked =
       value === true;

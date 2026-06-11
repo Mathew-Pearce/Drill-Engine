@@ -1,5 +1,6 @@
 import { createPanel } from '../core/createPanel';
 import { createViewportWindow } from './createViewportWindow';
+import { updateComponentField } from '../editor/actions/updateComponentField';
 import { createHierarchyPanel } from '../editor/panels/createHierarchyPanel';
 import { createInspectorPanel } from '../editor/panels/inspector/createInspectorPanel';
 import { createContactMatrixWindow } from '../editor/tools/contactMatrix/createContactMatrixWindow'
@@ -76,12 +77,28 @@ export function createWorkspace(
     ) {
   
       contactMatrixWindow =
-        createContactMatrixWindow(
+  createContactMatrixWindow(
+    editor,
+    () => {
+
+      const selectedId =
+        editor.getSelectedEntityId();
+
+      if (selectedId) {
+
+        updateComponentField({
+          runtime,
           editor,
-          () => {
-            editor.closeContactMatrix();
-          }
-        );
+          entityId: selectedId,
+          componentType: 'collider',
+          path: ['showContactMatrix'],
+          value: false,
+        });
+      }
+
+      editor.closeContactMatrix();
+    }
+  );
   
       frame.appendChild(
         contactMatrixWindow

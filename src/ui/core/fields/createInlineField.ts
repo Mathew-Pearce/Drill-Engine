@@ -35,7 +35,7 @@ export function createInlineField(
     `${label}:`;
 
   labelElement.style.width =
-    '100px';
+    '140px';
 
   labelElement.style.flexShrink =
     '0';
