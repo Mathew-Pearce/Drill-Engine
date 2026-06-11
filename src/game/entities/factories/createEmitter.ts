@@ -1,9 +1,13 @@
 import { createEmitterComponent } from '../../components/emitter/createEmitterComponent'
 import {createRenderableComponent } from '../../components/renderable/createRenderableComponent'
+import { createEntityId } from '../../utils/createEntityId'
+
 
 export function createEmitter(){
     return {
-            id: 'emitter_0',
+            id : createEntityId(
+                'emitter'
+            ),
             type: 'emitter',
     
             position: {

@@ -1,12 +1,12 @@
 import {createRenderableComponent } from '../../components/renderable/createRenderableComponent'
 import { createColliderComponent } from '../../components/collider/createColliderComponent'
 import { createTransformComponent } from '../../components/transform/createTransformComponent'
-
+import { createEntityId } from '../../utils/createEntityId'
 
 export function createWall(){
 
         return {
-        id: 'wall_1',
+        id: createEntityId('wall'),
         type: 'wall',
         markedForRemoval: false,
 

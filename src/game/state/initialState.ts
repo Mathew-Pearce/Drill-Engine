@@ -14,7 +14,6 @@ export const initialState = {
     entities: [
       createPlayer(),
       createEmitter({
-        id: 'emitter_0'
       }),
 
       createEmitter({
@@ -34,7 +33,7 @@ export const initialState = {
 
         pattern: 'aimed',
       }), 
-      
-      createWall()
+
+      createWall(),
     ],
   };
