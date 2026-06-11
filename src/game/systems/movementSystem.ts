@@ -13,6 +13,11 @@ export function movementSystem(state) {
     if (!position)
       return;
 
+    entity.previousPosition = {
+      x: position.x,
+      y: position.y,
+    };
+
     position.x +=
       entity.velocity.x;
 

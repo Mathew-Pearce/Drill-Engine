@@ -25,6 +25,8 @@ import { collisionSystem } from './game/systems/collisionSystem'
 
 import { damageSystem } from './game/systems/damageSystem'
 
+import { wallBlockSystem } from './game/systems/wallBlockSystem'
+
 import { contactRemovalSystem } from './game/systems/contactRemovalSystem'
 
 import { lifetimeSystem } 
@@ -53,6 +55,7 @@ const runtime =
       movementSystem,
       lifetimeSystem,
       collisionSystem,
+      wallBlockSystem,
       damageSystem,
       contactRemovalSystem,
       deathSystem, 
