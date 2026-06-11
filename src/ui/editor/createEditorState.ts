@@ -8,6 +8,9 @@ export function createEditorState() {
 
     let lockedRegions = {};
 
+    let isContactMatrixOpen =
+        false;
+
     const listeners = [];
 
     function notify() {
@@ -79,6 +82,27 @@ export function createEditorState() {
         listeners.push(listener);
     }
 
+    function openContactMatrix() {
+
+        isContactMatrixOpen =
+          true;
+      
+        notify();
+      }
+      
+      function closeContactMatrix() {
+      
+        isContactMatrixOpen =
+          false;
+      
+        notify();
+      }
+      
+      function getIsContactMatrixOpen() {
+      
+        return isContactMatrixOpen;
+      }
+
     return {
         getSelectedEntityId,
         selectEntity,
@@ -88,6 +112,10 @@ export function createEditorState() {
         toggleGroup,
         subscribe,
         notifyChange,
+
+        openContactMatrix,
+        closeContactMatrix,
+        getIsContactMatrixOpen,
 
         lockRegion,
         unlockRegion,

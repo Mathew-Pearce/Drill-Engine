@@ -2,6 +2,7 @@ export function createColliderComponent({
     layer = 'default',
     width = 10,
     height = 10,
+    showContactMatrix = false,
     visible = true,
   }) {
   
@@ -12,6 +13,8 @@ export function createColliderComponent({
       layer,
       width,
       height,
+
+      showContactMatrix,
   
       options: {
         layer: [

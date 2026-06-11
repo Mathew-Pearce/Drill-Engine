@@ -2,11 +2,15 @@ import { createPanel } from '../core/createPanel';
 import { createViewportWindow } from './createViewportWindow';
 import { createHierarchyPanel } from '../editor/panels/createHierarchyPanel';
 import { createInspectorPanel } from '../editor/panels/inspector/createInspectorPanel';
+import { createContactMatrixWindow } from '../editor/tools/contactMatrix/createContactMatrixWindow'
+
 
 export function createWorkspace(
   runtime,
   editor
 ) {
+
+  let contactMatrixWindow = null;
 
   const frame =
     createPanel();
@@ -57,6 +61,39 @@ export function createWorkspace(
   frame.appendChild(
     inspector
   );
+
+  function renderFloatingTools() {
+
+    if (
+      contactMatrixWindow
+    ) {
+      contactMatrixWindow.remove();
+      contactMatrixWindow = null;
+    }
+  
+    if (
+      editor.getIsContactMatrixOpen()
+    ) {
+  
+      contactMatrixWindow =
+        createContactMatrixWindow(
+          editor,
+          () => {
+            editor.closeContactMatrix();
+          }
+        );
+  
+      frame.appendChild(
+        contactMatrixWindow
+      );
+    }
+  }
+
+  editor.subscribe(
+    renderFloatingTools
+  );
+
+  renderFloatingTools();
 
   return {
     frame,

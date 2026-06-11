@@ -82,6 +82,7 @@ export function renderComponentField(
       key,
       formatNumber(value),
       newValue => {
+
         updateComponentField({
           runtime,
           editor,
@@ -90,6 +91,17 @@ export function renderComponentField(
           path: [key],
           value: newValue,
         });
+      
+        if (key === 'showContactMatrix') {
+      
+          if (newValue === true) {
+            editor.openContactMatrix();
+          }
+      
+          else {
+            editor.closeContactMatrix();
+          }
+        }
       },
       {
         optionsList,

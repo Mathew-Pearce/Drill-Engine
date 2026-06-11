@@ -1,15 +1,11 @@
+import { contactMatrix } from './contactMatrix';
+
 export function canLayersCollide(
-    sourceLayer,
-    targetLayer,
-    rules,
+  sourceLayer,
+  targetLayer
 ) {
-    const targets = 
-        rules[sourceLayer];
 
-    if (!targets)
-        return false;
-
-    return targets.includes(
-        targetLayer
-    );
+  return (
+    contactMatrix[sourceLayer]?.[targetLayer] === true
+  );
 }

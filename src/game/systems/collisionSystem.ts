@@ -39,10 +39,9 @@ export function collisionSystem(state) {
 
       if (
         !canLayersCollide(
-          sourceCollider.layer,
-          targetCollider.layer,
-          collisionRules
-        )
+            sourceCollider.layer,
+            targetCollider.layer
+          )
       ) return
 
       state.events.push({
