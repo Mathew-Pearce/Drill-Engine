@@ -1,8 +1,9 @@
-import { createHealthComponent } from '../components/health/createHealthComponent'
-import { createTransformComponent } from '../components/transform/createTransformComponent'
-import { createEmitterComponent } from '../components/emitter/createEmitterComponent'
+import { createPlayer } from '../entities/factories/createPlayer'
+import { createEmitter } from '../entities/factories/createEmitter'
+import { createWall } from '../entities/factories/createWall';
 import { createRenderableComponent } from '../components/renderable/createRenderableComponent'
 import { createColliderComponent} from '../components/collider/createColliderComponent'
+import { createTransformComponent } from '../components/transform/createTransformComponent'
 
 export const initialState = {
     game: {
@@ -11,179 +12,29 @@ export const initialState = {
     events: [],
     
     entities: [
-      {
-        id: 'player',
-        type: 'player',
-  
-        velocity: {
-          x: 1,
-          y: 0,
-        },
+      createPlayer(),
+      createEmitter({
+        id: 'emitter_0'
+      }),
 
-        maxHealth: 3,
-
-        components: {
-          transform: createTransformComponent({
-            x: 100,
-            y: 100, 
-            visible: true
-          }),
-
-          health: createHealthComponent({
-            currentHealth: 3,
-            visible: true,
-          }),
-
-          renderable: createRenderableComponent({
-            color: 'cyan',
-            shape: 'square',
-            size: 20,
-            visible: true
-          }),
-
-          collider: createColliderComponent({
-            layer: 'player',
-            width: 20,
-            height: 20,
-            visible: true
-          })
-        },
-
-        markedForRemoval: false,
-      },
-      {
+      createEmitter({
         id: 'emitter_1',
-        type: 'emitter',
 
-        position: {
-          x: 400,
-          y: 300,
-        },
-        
-        direction: {
-          x: 1,
-          y: 0,
-       },
+        x: 400,
+        y: 100,
 
-        health: 1,
+        pattern: 'directional',
+      }),
 
-        maxHealth: 1,
+      createEmitter({
+        id: 'emmiter_2',
 
-        components: {
-          emitter: createEmitterComponent({
-            pattern: 'radial',
-            fireRate: 20,
-            bulletCount: 12,
-            visible: true,
-          }),
-          
-          renderable: createRenderableComponent({
-            color: 'magenta',
-            shape: 'square',
-            size: 20,
-            visible: true
-          }),
-        },
-          markedForRemoval: false,
-        },
-      {
-        id: 'emitter_2',
-        type: 'emitter',
+        x: 700,
+        y: 300,
 
-        position: {
-          x: 400, 
-          y: 100
-        }, 
-        
-        direction: {
-          x: 0,
-          y: 1,
-        },
-
-          health: 1,
-
-          maxHealth: 1,
-
-          components: {
-            emitter: createEmitterComponent({
-              pattern: 'directional',
-              fireRate: 10,
-              bulletCount: 12,
-              visible: true,
-            }),
-            renderable: createRenderableComponent({
-              color: 'magenta',
-              shape: 'square',
-              size: 20,
-              visible: true
-            }),
-          },
-
-          markedForRemoval: false,
-        },
-      {
-        id: 'aimed_emmiter',
-
-        type: 'emitter',
-
-        target: 'player',
-
-        position: {
-          x: 700,
-          y: 300,
-        },
-        
-
-        health: 1,
-
-        maxHealth: 1,
-
-        components: {
-          emitter: createEmitterComponent({
-            pattern: 'aimed',
-            fireRate: 20,
-            bulletCount: 12,
-            visible: true,
-          }),
-
-          renderable: createRenderableComponent({
-            color: 'magenta',
-            shape: 'square',
-            size: 20,
-            visible: true
-          }),
-        },
-
-        markedForRemoval: false,
-      },
-      {
-        id: 'wall_1',
-        type: 'wall',
+        pattern: 'aimed',
+      }), 
       
-        components: {
-          transform: createTransformComponent({
-            x: 300,
-            y: 220,
-            visible: true,
-          }),
-      
-          renderable: createRenderableComponent({
-            color: 'gray',
-            shape: 'square',
-            width: 160,
-            height: 40,
-            visible: true,
-          }),
-      
-          collider: createColliderComponent({
-            layer: 'wall',
-            width: 160,
-            height: 40,
-            visible: true,
-          }),
-        },
-      
-        markedForRemoval: false,
-      }
+      createWall()
     ],
   };
