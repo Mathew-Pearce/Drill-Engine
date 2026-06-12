@@ -1,15 +1,34 @@
 import { createSectionTitle } from '../../../core/createSectionTitle';
 import { createDivider } from '../../../core/createDivider';
 import { createFieldRow } from '../../../core/createFieldRow';
+import { formatDisplayName } from '../../../core/formatDisplayName'
 
 export function renderEntityIdentity(
   panel,
   entity
 ) {
 
+  const identity =
+    document.createElement('div');
+
+  identity.style.background =
+    '#080808';
+
+  identity.style.border =
+    '1px solid #222';
+
+  identity.style.boxShadow =
+    '0 2px 6px rgba(0, 0, 0, 0.25)';
+
+  identity.style.margin =
+    '8px 4px';
+
+  identity.style.padding =
+    '8px';
+
   panel.appendChild(
     createSectionTitle(
-      entity.type
+      formatDisplayName(entity.type)
     )
   );
 
@@ -17,17 +36,21 @@ export function renderEntityIdentity(
     createDivider()
   );
 
-  panel.appendChild(
+  identity.appendChild(
     createFieldRow(
-      'id',
+      'Id',
       entity.id
     )
   );
 
-  panel.appendChild(
+  identity.appendChild(
     createFieldRow(
-      'type',
-      entity.type
+      'Type',
+      formatDisplayName(entity.type)
     )
+  );
+
+  panel.appendChild(
+    identity
   );
 }

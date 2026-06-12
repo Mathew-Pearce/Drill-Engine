@@ -310,6 +310,7 @@ contactLayers.forEach(layer => {
 
   label.style.transform =
     'rotate(-90deg) translateX(-100%)';
+    
   label.style.color =
   '#d0d0d0'
 

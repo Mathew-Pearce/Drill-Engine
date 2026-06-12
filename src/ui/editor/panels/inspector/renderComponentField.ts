@@ -1,5 +1,6 @@
 import { createFieldRow } from '../../../core/createFieldRow';
 import { createVectorFieldRow } from '../../../core/fields/createVectorFieldRow';
+import { formatDisplayName } from '../../../core/formatDisplayName'
 import { updateComponentField } from '../../actions/updateComponentField';
 
 function isVectorLike(value) {
@@ -48,7 +49,7 @@ export function renderComponentField(
 
     panel.appendChild(
       createVectorFieldRow(
-        key,
+        formatDisplayName(key),
         {
           x: formatNumber(value.x),
           y: formatNumber(value.y),
@@ -79,7 +80,7 @@ export function renderComponentField(
 
   panel.appendChild(
     createFieldRow(
-      key,
+      formatDisplayName(key),
       formatNumber(value),
       newValue => {
 

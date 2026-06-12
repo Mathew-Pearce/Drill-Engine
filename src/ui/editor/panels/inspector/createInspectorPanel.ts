@@ -23,6 +23,12 @@ export function createInspectorPanel(
 
     panel.innerHTML = '';
 
+    panel.style.display =
+  'flex';
+
+  panel.style.flexDirection =
+  'column';
+
     panel.appendChild(
       createTitle('Inspector')
     );
@@ -58,6 +64,20 @@ export function createInspectorPanel(
       entity
     );
 
+    const componentArea =
+    document.createElement('div');
+  
+    componentArea.style.overflowY =
+      'auto';
+  
+    componentArea.style.flex =
+       '1';
+  
+    componentArea.style.minHeight =
+      '0';
+
+      panel.appendChild(componentArea);
+      
     const components =
       entity.components ?? {};
 
@@ -66,7 +86,7 @@ export function createInspectorPanel(
       .forEach(component => {
 
         renderComponentSection(
-          panel,
+          componentArea,
           entity,
           component,
           runtime,

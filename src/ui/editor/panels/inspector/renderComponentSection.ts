@@ -1,6 +1,8 @@
 import { createSubTitle } from '../../../core/createSubTitle';
 import { createDivider } from '../../../core/createDivider';
+import {formatDisplayName } from '../../../core/formatDisplayName'
 import { renderComponentField } from './renderComponentField';
+import { createComponentCard } from '../../../core/createComponentCard'
 
 export function renderComponentSection(
   panel,
@@ -22,14 +24,32 @@ export function renderComponentSection(
       entity.id,
       component.type
     );
-
-  const header =
-    createSubTitle(
-      `${collapsed ? '▶' : '▼'} ${component.type} Component`
-    );
-
+    
+   const {
+    card,
+    header,
+    body,
+  } = createComponentCard(
+    `${collapsed ? '▶' : '▼'} ${formatDisplayName(component.type)} Component`,
+    !collapsed
+  );
   header.style.cursor =
     'pointer';
+
+    header.style.boxShadow =
+    collapsed
+      ? 'none'
+      : '0 0 6px rgba(76, 255, 76, 0.5)';
+
+    header.style.borderLeft =
+      collapsed
+        ? 'none'
+        : '2px solid rgba(76, 255, 76, 0.35)';
+
+      header.style.borderTop =
+        collapsed
+          ? 'none'
+          : '2px solid rgba(76, 255, 76, 0.35)';
 
   header.onpointerdown = () => {
     editor.lockRegion('inspector')
@@ -44,7 +64,7 @@ export function renderComponentSection(
   };
 
   panel.appendChild(
-    header
+    card
   );
 
   if (collapsed)
@@ -55,7 +75,7 @@ export function renderComponentSection(
     .forEach(([key, value]) => {
 
       renderComponentField(
-        panel,
+        body,
         entity,
         component,
         key,
