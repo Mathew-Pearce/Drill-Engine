@@ -28,8 +28,8 @@ export function createComponentCard(
           ? '2px solid rgba(76, 255, 76, 0.35)'
           : '1px solid #222';
 
-          card.style.boxShadow =
-          isOpen
+     card.style.boxShadow =
+        isOpen
             ? `
                 inset 2px 0 7px rgba(76, 255, 76, 0.1),
                 0 0 6px rgba(76, 255, 76, 0.18),
@@ -60,8 +60,6 @@ export function createComponentCard(
     const body = 
         document.createElement('div');
 
-        body.style.border=
-        '1px dotted rgba(76,255,76,0.15)';
     
     body.style.padding =
         '8px';

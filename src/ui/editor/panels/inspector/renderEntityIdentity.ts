@@ -1,12 +1,43 @@
-import { createSectionTitle } from '../../../core/createSectionTitle';
-import { createDivider } from '../../../core/createDivider';
 import { createFieldRow } from '../../../core/createFieldRow';
-import { formatDisplayName } from '../../../core/formatDisplayName'
+import { formatDisplayName } from '../../../core/formatDisplayName';
 
 export function renderEntityIdentity(
   panel,
   entity
 ) {
+
+  const container =
+    document.createElement('div');
+
+  container.style.margin =
+    '8px 4px';
+
+  container.style.border =
+    '1px solid #222';
+
+  container.style.boxShadow =
+    '0 2px 6px rgba(0, 0, 0, 0.25)';
+
+    container.style.marginBottom =
+    '8px';
+
+  const header =
+    document.createElement('div');
+
+  header.textContent =
+    `${formatDisplayName(entity.type)} Entity`;
+
+  header.style.background =
+    '#1f1f1f';
+
+  header.style.color =
+    '#d0d0d0';
+
+  header.style.padding =
+    '8px';
+
+  header.style.fontWeight =
+    'bold';
 
   const identity =
     document.createElement('div');
@@ -14,27 +45,8 @@ export function renderEntityIdentity(
   identity.style.background =
     '#080808';
 
-  identity.style.border =
-    '1px solid #222';
-
-  identity.style.boxShadow =
-    '0 2px 6px rgba(0, 0, 0, 0.25)';
-
-  identity.style.margin =
-    '8px 4px';
-
   identity.style.padding =
     '8px';
-
-  panel.appendChild(
-    createSectionTitle(
-      formatDisplayName(entity.type)
-    )
-  );
-
-  panel.appendChild(
-    createDivider()
-  );
 
   identity.appendChild(
     createFieldRow(
@@ -46,11 +58,19 @@ export function renderEntityIdentity(
   identity.appendChild(
     createFieldRow(
       'Type',
-      formatDisplayName(entity.type)
+      entity.type
     )
   );
 
-  panel.appendChild(
+  container.appendChild(
+    header
+  );
+
+  container.appendChild(
     identity
+  );
+
+  panel.appendChild(
+    container
   );
 }
