@@ -30,14 +30,17 @@ export function renderEntityIdentity(
   header.style.background =
     '#1f1f1f';
 
-  header.style.color =
-    '#d0d0d0';
-
   header.style.padding =
     '8px';
 
   header.style.fontWeight =
     'bold';
+
+  header.style.color =
+    'rgba(76,255,76,0.9)';
+
+   header.style.boxShadow =
+    'inset 3px 0 0 rgba(76,255,76,0.5)';
 
   const identity =
     document.createElement('div');
