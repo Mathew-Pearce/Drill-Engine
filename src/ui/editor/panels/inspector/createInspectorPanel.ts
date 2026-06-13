@@ -1,7 +1,6 @@
 import { createPanel } from '../../../core/createPanel';
 import { createTitle } from '../../../core/createTitle';
 import { createDivider } from '../../../core/createDivider';
-
 import { renderEntityIdentity } from './renderEntityIdentity';
 import { renderComponentSection } from './renderComponentSection';
 
@@ -19,15 +18,50 @@ export function createInspectorPanel(
   panel.style.flexShrink =
     '0';
 
+  panel.style.display =
+    'flex';
+
+  panel.style.flexDirection =
+    'column';
+
+  const componentArea =
+    document.createElement('div');
+
+  componentArea.style.overflowY =
+    'auto';
+
+  componentArea.style.flex =
+    '1';
+
+  componentArea.style.minHeight =
+    '0';
+
+    componentArea.onpointerenter = () => {
+
+      editor.lockRegion(
+        'inspector'
+      );
+    };
+    
+    componentArea.onpointerleave = () => {
+    
+      editor.unlockRegion(
+        'inspector'
+      );
+    };
+
+  componentArea.onscroll = () => {
+
+    editor.setScrollPosition(
+      'inspector.components',
+      componentArea.scrollTop
+
+    );
+  };
+
   function render() {
 
     panel.innerHTML = '';
-
-    panel.style.display =
-  'flex';
-
-  panel.style.flexDirection =
-  'column';
 
     panel.appendChild(
       createTitle('Inspector')
@@ -40,9 +74,9 @@ export function createInspectorPanel(
     const selectedId =
       editor.getSelectedEntityId();
 
-      const state =
-        runtime.getState();
-  
+    const state =
+      runtime.getState();
+
     const entity =
       state.entities.find(
         entity => entity.id === selectedId
@@ -64,20 +98,13 @@ export function createInspectorPanel(
       entity
     );
 
-    const componentArea =
-    document.createElement('div');
-  
-    componentArea.style.overflowY =
-      'auto';
-  
-    componentArea.style.flex =
-       '1';
-  
-    componentArea.style.minHeight =
-      '0';
+    componentArea.innerHTML =
+      '';
 
-      panel.appendChild(componentArea);
-      
+    panel.appendChild(
+      componentArea
+    );
+
     const components =
       entity.components ?? {};
 
@@ -93,24 +120,28 @@ export function createInspectorPanel(
           editor
         );
       });
+      componentArea.scrollTop =
+  editor.getScrollPosition(
+    'inspector.components'
+  );
   }
 
   editor.subscribe(
     render
   );
-  
+
   runtime.subscribe(() => {
-  
+
     if (
       editor.isRegionLocked(
         'inspector'
       )
     ) return;
-  
+
     render();
   });
-  
+
   render();
-  
+
   return panel;
-};
+}

@@ -8,6 +8,8 @@ export function createEditorState() {
 
     let lockedRegions = {};
 
+    let scrollPositions = {};
+
     let isContactMatrixOpen =
         false;
 
@@ -22,6 +24,23 @@ export function createEditorState() {
     function notifyChange() {
         notify();
       }
+
+      function setScrollPosition(
+        key,
+        value
+      ) {
+      
+        scrollPositions[key] =
+          value;
+      }
+      
+      function getScrollPosition(
+        key
+      ) {
+      
+        return scrollPositions[key] ?? 0;
+      }
+      
 
       function lockRegion(name) {
 
@@ -116,6 +135,9 @@ export function createEditorState() {
         openContactMatrix,
         closeContactMatrix,
         getIsContactMatrixOpen,
+
+        setScrollPosition,
+        getScrollPosition,
 
         lockRegion,
         unlockRegion,
