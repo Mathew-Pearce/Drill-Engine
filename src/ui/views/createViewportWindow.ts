@@ -1,6 +1,6 @@
 import { createPanel } from '../core/createPanel'
 import { createViewport } from './createViewport'
-import { createRuntimeToolbar } from '../controls/createRuntimeToolbar'
+import { createRuntimeToolbar } from '../controls/runtimeToolbar/createRuntimeToolbar'
 
 export function createViewportWindow(runtime) {
     const frame =

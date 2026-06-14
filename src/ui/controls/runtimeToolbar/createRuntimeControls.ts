@@ -1,5 +1,5 @@
-import { createPanel } from '../core/createPanel';
-import { createIconButton } from '../core/createIconButton';
+import { createPanel } from '../../core/createPanel';
+import { createIconButton } from '../../core/createIconButton';
 
 export function createRuntimeControls(panel) {
      

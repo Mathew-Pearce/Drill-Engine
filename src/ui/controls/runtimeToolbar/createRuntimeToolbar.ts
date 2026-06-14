@@ -5,11 +5,12 @@ import {
   processStop,
   processStep,
   processFastForward,
-} from '../../engine/controls';
+} from '../../../engine/controls';
 
-import { createPanel } from '../core/createPanel';
-import { bindRuntimeView } from '../core/bindRuntimeView';
-import {createRuntimeControls } from './createRuntimeControls'
+import { createPanel } from '../../core/createPanel';
+import { bindRuntimeView } from '../../core/bindRuntimeView';
+import { createRuntimeControls } from './createRuntimeControls'
+import { renderRuntimeToolbar } from './renderRuntimeToolbar'
 
 export function createRuntimeToolbar(runtime) {
 
@@ -85,71 +86,14 @@ export function createRuntimeToolbar(runtime) {
 
   function render() {
 
-    const status =
-      runtime.getStatus();
-
-    syncUI(runtime, ui);
-
-    ui.stateLabel.textContent =
-      `State: ${status}`;
-
-    if (status === 'running') {
-
-      ui.startButton.textContent =
-        '⏸';
-
-      ui.startButton.title =
-        'Pause';
-    }
-
-    else if (status === 'paused') {
-
-      ui.startButton.textContent =
-        '▶';
-
-      ui.startButton.title =
-        'Resume';
-    }
-
-    else {
-
-      ui.startButton.textContent =
-        '▶';
-
-      ui.startButton.title =
-        'Start';
-    }
-
-    ui.startButton.disabled =
-      false;
-
-    ui.stopButton.disabled =
-      status === 'stopped';
-
-    ui.stepButton.disabled =
-      status !== 'paused';
-
-    ui.fastForwardButton.disabled =
-      status !== 'running';
-
-    ui.startButton.setActive(
-      status === 'running' &&
-      !isFastForwarding
-    );
-
-    ui.stopButton.setActive(
-      false
-    );
-
-    ui.stopButton.setWarning(
-      status !== 'stopped'
-    );
-
-    ui.fastForwardButton.setActive(
-      status === 'running' &&
+    renderRuntimeToolbar(
+      runtime,
+      ui,
       isFastForwarding
     );
   }
+
+  render();
 
   bindRuntimeView(
     runtime,
@@ -158,5 +102,3 @@ export function createRuntimeToolbar(runtime) {
 
   return panel;
 }
-
-function syncUI(runtime, ui) 
