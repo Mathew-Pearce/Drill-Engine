@@ -23,7 +23,7 @@ export function createHierarchyPanel(
     panel.innerHTML = '';
 
     const title = panel.appendChild(
-      createTitle('World')
+      createTitle('Environment')
     );
 
     title.style.background =
