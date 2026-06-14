@@ -16,8 +16,14 @@ export function createRuntimeToolbar(runtime) {
   const panel =
     createPanel();
 
+    panel.style.padding =
+    '6px 0';
+
   const ui =
     createControls(panel);
+
+  let isFastForwarding =
+    false;
 
   ui.resetCheckbox.onchange = () => {
 
@@ -34,22 +40,48 @@ export function createRuntimeToolbar(runtime) {
       processStart(runtime);
     }
 
+    else if (status === 'running') {
+
+      if (isFastForwarding) {
+        processFastForward(runtime);
+
+        isFastForwarding =
+          false;
+      }
+
+      processPause(runtime);
+    }
+
     else if (status === 'paused') {
       processResume(runtime);
     }
   };
 
-  ui.pauseButton.onclick = () =>
-    processPause(runtime);
+  ui.stopButton.onclick = () => {
 
-  ui.stopButton.onclick = () =>
     processStop(runtime);
 
-  ui.stepButton.onclick = () =>
+    isFastForwarding =
+      false;
+  };
+
+  ui.stepButton.onclick = () => {
+
     processStep(runtime);
 
-  ui.fastForwardButton.onclick = () =>
+    ui.stepButton.flash();
+  };
+
+  ui.fastForwardButton.onclick = () => {
+
+    if (runtime.getStatus() !== 'running')
+      return;
+
     processFastForward(runtime);
+
+    isFastForwarding =
+      !isFastForwarding;
+  };
 
   function render() {
 
@@ -61,11 +93,35 @@ export function createRuntimeToolbar(runtime) {
     ui.stateLabel.textContent =
       `State: ${status}`;
 
-    ui.startButton.disabled =
-      status === 'running';
+    if (status === 'running') {
 
-    ui.pauseButton.disabled =
-      status !== 'running';
+      ui.startButton.textContent =
+        '⏸';
+
+      ui.startButton.title =
+        'Pause';
+    }
+
+    else if (status === 'paused') {
+
+      ui.startButton.textContent =
+        '▶';
+
+      ui.startButton.title =
+        'Resume';
+    }
+
+    else {
+
+      ui.startButton.textContent =
+        '▶';
+
+      ui.startButton.title =
+        'Start';
+    }
+
+    ui.startButton.disabled =
+      false;
 
     ui.stopButton.disabled =
       status === 'stopped';
@@ -74,7 +130,25 @@ export function createRuntimeToolbar(runtime) {
       status !== 'paused';
 
     ui.fastForwardButton.disabled =
-      status === 'stopped';
+      status !== 'running';
+
+    ui.startButton.setActive(
+      status === 'running' &&
+      !isFastForwarding
+    );
+
+    ui.stopButton.setActive(
+      false
+    );
+
+    ui.stopButton.setWarning(
+      status !== 'stopped'
+    );
+
+    ui.fastForwardButton.setActive(
+      status === 'running' &&
+      isFastForwarding
+    );
   }
 
   bindRuntimeView(
@@ -88,10 +162,10 @@ export function createRuntimeToolbar(runtime) {
 function createControls(panel) {
 
   panel.style.display =
-    'flex';
+    'grid';
 
-  panel.style.justifyContent =
-    'relative';
+  panel.style.gridTemplateColumns =
+    '1fr auto 1fr';
 
   panel.style.alignItems =
     'center';
@@ -114,40 +188,28 @@ function createControls(panel) {
   stateLabel.style.paddingLeft =
     '8px';
 
-    stateLabel.style.minWidth =
+  stateLabel.style.minWidth =
     '120px';
 
   const controls =
     document.createElement('div');
 
-    controls.style.display =
+  controls.style.display =
     'flex';
 
-    controls.style.alignItems =
+  controls.style.alignItems =
     'center';
 
-    controls.style.gap =
+  controls.style.justifyContent =
+    'center';
+
+  controls.style.gap =
     '8px';
-
-    panel.style.display =
-    'grid';
-  
-    panel.style.gridTemplateColumns =
-    '1fr auto 1fr';
-  
-    panel.style.alignItems =
-    'center';
 
   const startButton =
     createIconButton(
       '▶',
-      'Start / Resume'
-    );
-
-  const pauseButton =
-    createIconButton(
-      '⏸',
-      'Pause'
+      'Start'
     );
 
   const stopButton =
@@ -169,7 +231,6 @@ function createControls(panel) {
     );
 
   controls.appendChild(startButton);
-  controls.appendChild(pauseButton);
   controls.appendChild(stopButton);
   controls.appendChild(stepButton);
   controls.appendChild(fastForwardButton);
@@ -189,7 +250,7 @@ function createControls(panel) {
   resetGroup.style.color =
     '#d0d0d0';
 
-  resetGroup.style.paddingRight =
+  resetGroup.style.paddingLeft =
     '8px';
 
   const resetCheckbox =
@@ -208,16 +269,16 @@ function createControls(panel) {
 
   controls.appendChild(resetGroup);
 
+  const spacer =
+    document.createElement('div');
+
   panel.appendChild(stateLabel);
   panel.appendChild(controls);
-  const spacer =
-  document.createElement('div');
   panel.appendChild(spacer);
 
   return {
     stateLabel,
     startButton,
-    pauseButton,
     stopButton,
     stepButton,
     fastForwardButton,
