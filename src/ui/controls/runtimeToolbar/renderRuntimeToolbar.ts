@@ -1,3 +1,6 @@
+import playIcon from '../../core/icons/play.svg'
+import pauseIcon from '../../core/icons/pause.svg'
+
 import { syncRuntimeToolbar } from './syncRuntimeToolbar'
 
 export function renderRuntimeToolbar(
@@ -19,8 +22,9 @@ export function renderRuntimeToolbar(
     
         if (status === 'running') {
     
-          ui.startButton.textContent =
-            '⏸';
+          ui.startButton.setIcon(
+            pauseIcon
+          );
     
           ui.startButton.title =
             'Pause';
@@ -28,8 +32,9 @@ export function renderRuntimeToolbar(
     
         else if (status === 'paused') {
     
-          ui.startButton.textContent =
-            '▶';
+          ui.startButton.setIcon(
+            playIcon
+          );
     
           ui.startButton.title =
             'Resume';
@@ -37,8 +42,9 @@ export function renderRuntimeToolbar(
     
         else {
     
-          ui.startButton.textContent =
-            '▶';
+          ui.startButton.setIcon(
+            playIcon
+          );
     
           ui.startButton.title =
             'Start';
@@ -67,6 +73,9 @@ export function renderRuntimeToolbar(
     
         ui.stopButton.setWarning(
           status !== 'stopped'
+        );
+        ui.stepButton.setWarning(
+          status === 'paused'
         );
     
         ui.fastForwardButton.setActive(

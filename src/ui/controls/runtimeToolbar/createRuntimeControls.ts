@@ -1,3 +1,10 @@
+import playIcon from '../../core/icons/play.svg'
+import stopIcon from '../../core/icons/square.svg';
+import stepIcon from '../../core/icons/step-forward.svg';
+import fastForwardIcon from '../../core/icons/fast-forward.svg';
+import pauseIcon from '../../core/icons/pause.svg';
+
+
 import { createPanel } from '../../core/createPanel';
 import { createIconButton } from '../../core/createIconButton';
 
@@ -51,25 +58,25 @@ export function createRuntimeControls(panel) {
       
         const startButton =
           createIconButton(
-            '▶',
+            playIcon,
             'Start'
           );
       
         const stopButton =
           createIconButton(
-            '■',
+            stopIcon,
             'Stop'
           );
       
         const stepButton =
           createIconButton(
-            '⏭',
+            stepIcon,
             'Step'
           );
       
         const fastForwardButton =
           createIconButton(
-            '⏩',
+            fastForwardIcon,
             'Fast Forward'
           );
       

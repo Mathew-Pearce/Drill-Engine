@@ -1,10 +1,35 @@
 export function createIconButton(
-  icon,
+  iconSrc,
   title
 ) {
 
   const button =
     document.createElement('button');
+
+  const icon =
+    document.createElement('img');
+
+  icon.src =
+    iconSrc;
+
+  icon.alt =
+    title;
+
+  icon.style.width =
+    '18px';
+
+  icon.style.height =
+    '18px';
+
+  icon.style.pointerEvents =
+    'none';
+
+  icon.style.filter =
+    'brightness(0.85)';
+
+  button.appendChild(
+    icon
+  );
 
   let isActive =
     false;
@@ -14,9 +39,6 @@ export function createIconButton(
 
   let isHovering =
     false;
-
-  button.textContent =
-    icon;
 
   button.title =
     title;
@@ -48,11 +70,8 @@ export function createIconButton(
   button.style.cursor =
     'pointer';
 
-  button.style.fontSize =
-    '16px';
-
   button.style.transition =
-    'box-shadow 100ms ease, transform 100ms ease, color 100ms ease, border 100ms ease';
+    'box-shadow 100ms ease, transform 100ms ease, border 100ms ease, background 100ms ease';
 
   function render() {
 
@@ -61,8 +80,11 @@ export function createIconButton(
 
     if (button.disabled) {
 
-      button.style.color =
-        '#555';
+      icon.style.filter =
+        'brightness(0.25)';
+
+      button.style.background =
+        '#080808';
 
       button.style.boxShadow =
         'none';
@@ -81,51 +103,72 @@ export function createIconButton(
 
     if (isWarning) {
 
-      button.style.color =
+      icon.style.filter =
         isHovering
-          ? '#ffb0b0'
-          : '#ff8c8c';
+          ? 'brightness(2) drop-shadow(0 0 8px rgba(255,76,76,0.9))'
+          : 'brightness(1.55) drop-shadow(0 0 5px rgba(255,76,76,0.65))';
+
+      button.style.background =
+        isHovering
+          ? '#170808'
+          : '#100808';
 
       button.style.boxShadow =
         isHovering
-          ? '0 0 12px rgba(255, 76, 76, 0.45)'
-          : '0 0 8px rgba(255, 76, 76, 0.28)';
+          ? 'inset 0 0 14px rgba(255,76,76,0.22), 0 0 16px rgba(255,76,76,0.5)'
+          : 'inset 0 0 10px rgba(255,76,76,0.14), 0 0 10px rgba(255,76,76,0.32)';
 
       button.style.border =
-        '1px solid rgba(255, 76, 76, 0.45)';
+        '1px solid rgba(255,76,76,0.45)';
 
       return;
     }
 
     if (isActive) {
 
-      button.style.color =
-        '#8cff8c';
+      icon.style.filter =
+        isHovering
+          ? 'brightness(2) drop-shadow(0 0 8px rgba(76,255,76,0.9))'
+          : 'brightness(1.7) drop-shadow(0 0 6px rgba(76,255,76,0.7))';
+
+      button.style.background =
+        isHovering
+          ? '#0d1a0d'
+          : '#0a140a';
 
       button.style.boxShadow =
         isHovering
-          ? '0 0 14px rgba(76, 255, 76, 0.5)'
-          : '0 0 10px rgba(76, 255, 76, 0.35)';
+          ? 'inset 0 0 14px rgba(76,255,76,0.22), 0 0 16px rgba(76,255,76,0.55)'
+          : 'inset 0 0 12px rgba(76,255,76,0.16), 0 0 12px rgba(76,255,76,0.42)';
 
       button.style.border =
-        '1px solid rgba(76, 255, 76, 0.45)';
+        '1px solid rgba(76,255,76,0.45)';
 
       return;
     }
 
-    button.style.color =
+    icon.style.filter =
       isHovering
-        ? '#8cff8c'
-        : '#d0d0d0';
+        ? 'brightness(1.35) drop-shadow(0 0 4px rgba(76,255,76,0.35))'
+        : 'brightness(0.85)';
+
+    button.style.background =
+      '#080808';
 
     button.style.boxShadow =
       isHovering
-        ? '0 0 8px rgba(76, 255, 76, 0.22)'
+        ? '0 0 8px rgba(76,255,76,0.22)'
         : 'none';
 
     button.style.border =
       '1px solid #333';
   }
+
+  button.setIcon = nextIconSrc => {
+
+    icon.src =
+      nextIconSrc;
+  };
 
   button.setActive = active => {
 
@@ -148,8 +191,11 @@ export function createIconButton(
     if (button.disabled)
       return;
 
+    icon.style.filter =
+      'brightness(2.2) drop-shadow(0 0 8px rgba(76,255,76,1))';
+
     button.style.boxShadow =
-      '0 0 14px rgba(76, 255, 76, 0.65)';
+      'inset 0 0 14px rgba(76,255,76,0.25), 0 0 18px rgba(76,255,76,0.7)';
 
     button.style.transform =
       'scale(0.92)';
