@@ -35,10 +35,16 @@ export function createHierarchyPanel(
     title.style.padding =
       '8px';
 
+    title.style.paddingBottom =
+    '2'
+
     title.style.borderBottom =
       '1px solid #444';
 
     title.style.marginTop =
+      '0'
+
+    title.style.marginBottom =
       '0'
 
     const groups = {};

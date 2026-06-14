@@ -159,9 +159,4 @@ export function createRuntimeToolbar(runtime) {
   return panel;
 }
 
-
-function syncUI(runtime, ui) {
-
-  ui.resetCheckbox.checked =
-    runtime.getConfig().resetOnStop;
-}
+function syncUI(runtime, ui) 
