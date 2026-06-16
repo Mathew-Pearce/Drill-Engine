@@ -4,8 +4,8 @@ import stepIcon from '../../core/icons/step-forward.svg';
 import fastForwardIcon from '../../core/icons/fast-forward.svg';
 import pauseIcon from '../../core/icons/pause.svg';
 
-
 import { createPanel } from '../../core/createPanel';
+import { createRuntimeStatusIndicator } from './createRuntimeStatusIndicator'
 import { createIconButton } from '../../core/createIconButton';
 
 export function createRuntimeControls(panel) {
@@ -40,6 +40,9 @@ export function createRuntimeControls(panel) {
       
         stateLabel.style.minWidth =
           '120px';
+
+        const statusIndicator = 
+          createRuntimeStatusIndicator();
       
         const controls =
           document.createElement('div');
@@ -121,12 +124,13 @@ export function createRuntimeControls(panel) {
   const spacer =
     document.createElement('div');
 
-  panel.appendChild(stateLabel);
+  panel.appendChild(statusIndicator.element);
   panel.appendChild(controls);
   panel.appendChild(spacer);
 
   return {
     stateLabel,
+    statusIndicator,
     startButton,
     stopButton,
     stepButton,

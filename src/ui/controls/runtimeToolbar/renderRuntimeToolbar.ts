@@ -17,8 +17,9 @@ export function renderRuntimeToolbar(
             ui
           );
     
-        ui.stateLabel.textContent =
-          `State: ${status}`;
+        ui.statusIndicator.setStatus(
+          status
+        );
     
         if (status === 'running') {
     
