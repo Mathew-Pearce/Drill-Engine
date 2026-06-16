@@ -28,6 +28,7 @@ export function renderRuntimeToolbar(
     
           ui.startButton.title =
             'Pause';
+
         }
     
         else if (status === 'paused') {
@@ -61,6 +62,22 @@ export function renderRuntimeToolbar(
     
         ui.fastForwardButton.disabled =
           status !== 'running';
+
+          ui.startButton.setTone(
+            'green'
+          );
+          
+          ui.stopButton.setTone(
+            'red'
+          );
+          
+          ui.stepButton.setTone(
+            'amber'
+          );
+          
+          ui.fastForwardButton.setTone(
+            'cyan'
+          );
     
         ui.startButton.setActive(
           status === 'running' &&
@@ -71,10 +88,10 @@ export function renderRuntimeToolbar(
           false
         );
     
-        ui.stopButton.setWarning(
+        ui.stopButton.setActive(
           status !== 'stopped'
         );
-        ui.stepButton.setWarning(
+        ui.stepButton.setActive(
           status === 'paused'
         );
     
